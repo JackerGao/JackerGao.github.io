@@ -99,7 +99,7 @@
 <meta property="og:image" content="https:&#x2F;&#x2F;pic4.zhimg.com&#x2F;80&#x2F;v2-6a605083842a6ab1d1180a8bfbe6bf7b_hd.jpg">
 <meta property="og:image" content="https:&#x2F;&#x2F;www.zhihu.com&#x2F;equation?tex=p%28v%7Ccontext%29%3D%5Cprod_%7Bi%3D1%7D%5E%7Bm%7Dp%28b_i%28v%29%7Cb_1%28v%29%2C...%2Cb_%7Bi-1%7D%28v%29%2Ccontext%29">
 <meta property="og:image" content="https:&#x2F;&#x2F;www.zhihu.com&#x2F;equation?tex=p%28w_t%7Ccontext%29%3Dp%28D_1%3D1%7Ccontext%29p%28D_2%3D0%7CD_1%3D1%29...p%28w_t%7CD_k%3D1%29">
-<meta property="og:updated_time" content="2019-11-27T03:20:49.405Z">
+<meta property="og:updated_time" content="2019-11-27T06:36:52.962Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="d:&#x2F;myallfile&#x2F;work&#x2F;机器学习知识库&#x2F;AlgorithmUnderstanding&#x2F;source&#x2F;images&#x2F;1574821234004.png">
 
@@ -320,6 +320,7 @@
 <script type="math/tex; mode=display">
 \mathbf h= \mathbf W^T \mathbf x=\mathbf W_{(k,\cdot)}^T  :=\mathbf v_{\omega_I}^T \tag{1}</script><p>$x$是某个单词的one-hot向量表示，且该单词在词典中的下标为k，即$x_k$=1, $x^\prime_k=0, k^\prime≠k$。因此只用到$W^T$的第$k$列，也即$W$的第$k$行。因此，$W$的第$k$行即为第k个单词的输入词向量，相当于直接将$W$的第$k$行拷贝到隐藏层单元$h$上。该输入词向量也是我们最终学习到的词向量（后面的输出词向量我们不需要）。</p>
 <p>在上述神经网络中，相当于输入层到隐藏层的激活函数为线性激活函数。另外，由于具有上述的性质，因此通常输入层到隐藏层不显示绘制出来，直接通过查表操作(如TensorFlow中embedding_lookup)拿出单词的词向量，然后传入到下一层，只不过这个词向量也需要通过反向传播来优化。</p>
+<a id="more"></a>
 <p><strong>隐藏层到输出层</strong><br>从隐藏层到输出层，同样有连接权重矩阵$W′_{N×V}=w′_{ij}$来表示。注意，$W$和$W′$不是转置的关系，是不同的两个矩阵。$W′$用于预测输出词向量。</p>
 <script type="math/tex; mode=display">
 \mathbf W’=  \begin{pmatrix}  w_{11}^{\prime}&  w_{12}^{\prime}&… & w_{1V}^{\prime}\\ w_{21}^{\prime} &w_{22}^{\prime}&…&w_{2V}^{\prime}\\  …&…&…&…\\  w_{N1}^{\prime} &w_{N2}^{\prime}&…&w_{NV}^{\prime}  \end{pmatrix}</script><p>$W′$的每一列可以解释为相应单词的输出词向量，即：第一列为词典中第一个单词的输出词向量表示，第$k$列为词典中第k个词的输出词向量表示，记做$v′_{w_k}$。<br><strong>计算输出层每个单元$j$的未激活值，这个$j$就是基本定义中的输出单词(标签)在词典中的下标。</strong></p>
