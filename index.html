@@ -247,7 +247,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/11/26/GraphEnbedding/" itemprop="url">GraphEnbedding</a></h1>
+                <a class="post-title-link" href="/2019/11/26/GraphEnbedding/" itemprop="url">Word2Vec Paper Understanding</a></h1>
         
 
         <div class="post-meta">
@@ -301,34 +301,24 @@
           
             <h1 id="Graph-Embedding-and-Corresponding-Knowledge"><a href="#Graph-Embedding-and-Corresponding-Knowledge" class="headerlink" title="Graph Embedding and Corresponding Knowledge"></a>Graph Embedding and Corresponding Knowledge</h1><h2 id="1-Neural-Network-language-model"><a href="#1-Neural-Network-language-model" class="headerlink" title="1. Neural Network language model"></a>1. Neural Network language model</h2><h3 id="1-1-CBOW-Continue-bag-of-words"><a href="#1-1-CBOW-Continue-bag-of-words" class="headerlink" title="1.1 CBOW(Continue bag of words)"></a>1.1 CBOW(Continue bag of words)</h3><p>CBOW最早是Mikolov等大牛在2013年提出的。CBOW要利用若干个上下文词来预测中心词。之所以称为continuous bag-of-word，即连续词袋，是因为在考虑上下文单词时，这些上下文单词的顺序是忽略的。我们先从最简单版本的CBOW开始讲，即上下文词只有1个。</p>
 <h4 id="One-word-context"><a href="#One-word-context" class="headerlink" title="One-word context"></a>One-word context</h4><p>先从最简单的CBOW开始讲，即只使用1个上下文单词<script type="math/tex">w_I</script>来预测中心词<script type="math/tex">w_O</script>。<br>如图1描述的就是One-word context定义之下的神经网络模型。词典大小为V, 隐藏层的大小为N，相邻层的神经元是全连接的。输入层是一个用one-hot方式编码的单词向量$x=(x_1,…x_k,…,x_V)$，其中只有一个$x_k$为1，其余均为0。</p>
-<center>
-    <img style="border-radius: 0.3125em;
-    box-shadow: 0 2px 4px 0 rgba(34,36,38,.12),0 2px 10px 0 rgba(34,36,38,.08);" 
-    src="http://xtf615.com/picture/machine-learning/CBOW1.png">
-    <br>
-    <div style="color:orange; border-bottom: 1px solid #d9d9d9;
-    display: inline-block;
-    color: #999;
-    padding: 2px;">CBOW模型框架</div>
-</center>
-
+<p><img src="C:\Users\shuli.gao\AppData\Roaming\Typora\typora-user-images\1574821234004.png" alt="1574821234004"></p>
 <p><strong>输入层到隐藏层</strong><br>输入层到隐藏层的连接权重可以表示使用$W_{V \times N}$:</p>
 <script type="math/tex; mode=display">
 \mathbf W=  \begin{pmatrix}  w_{11}& w_{12}& …& w_{1N}\\  w_{21}& w_{22}& … & w_{2N}\\  …& … & … & …\\  w_{V1}& w_{V2}&. .. &w_{VN}  \end{pmatrix}</script><p>$W_{V \times N}$每行是相应单词的输入词向量表示，即第一行为词典中第一个单词的输入词向量表示，第$k$行为词典中第$k$个词的输入词向量表示，解释如下：</p>
 <script type="math/tex; mode=display">
-\mathbf h= \mathbf W^T \mathbf x=\mathbf W_{(k,\cdot)}^T  :=\mathbf v_{\omega_I}^T \tag{1}</script><p>$x$是某个单词的one-hot向量表示，且该单词在词典中的下标为k，即$x_k$=1, $x_k′=0, k′≠k$。因此只用到$W^T$的第$k$列，也即$W$的第$k$行。因此，$W$的第$k$行即为第k个单词的输入词向量，相当于直接将$W$的第$k$行拷贝到隐藏层单元$h$上。该输入词向量也是我们最终学习到的词向量（后面的输出词向量我们不需要）。</p>
+\mathbf h= \mathbf W^T \mathbf x=\mathbf W_{(k,\cdot)}^T  :=\mathbf v_{\omega_I}^T \tag{1}</script><p>$x$是某个单词的one-hot向量表示，且该单词在词典中的下标为k，即$x_k$=1, $x^\prime_k=0, k^\prime≠k$。因此只用到$W^T$的第$k$列，也即$W$的第$k$行。因此，$W$的第$k$行即为第k个单词的输入词向量，相当于直接将$W$的第$k$行拷贝到隐藏层单元$h$上。该输入词向量也是我们最终学习到的词向量（后面的输出词向量我们不需要）。</p>
 <p>在上述神经网络中，相当于输入层到隐藏层的激活函数为线性激活函数。另外，由于具有上述的性质，因此通常输入层到隐藏层不显示绘制出来，直接通过查表操作(如TensorFlow中embedding_lookup)拿出单词的词向量，然后传入到下一层，只不过这个词向量也需要通过反向传播来优化。</p>
 <p><strong>隐藏层到输出层</strong><br>从隐藏层到输出层，同样有连接权重矩阵$W′_{N×V}=w′_{ij}$来表示。注意，$W$和$W′$不是转置的关系，是不同的两个矩阵。$W′$用于预测输出词向量。</p>
 <script type="math/tex; mode=display">
 \mathbf W’=  \begin{pmatrix}  w_{11}^{\prime}&  w_{12}^{\prime}&… & w_{1V}^{\prime}\\ w_{21}^{\prime} &w_{22}^{\prime}&…&w_{2V}^{\prime}\\  …&…&…&…\\  w_{N1}^{\prime} &w_{N2}^{\prime}&…&w_{NV}^{\prime}  \end{pmatrix}</script><p>$W′$的每一列可以解释为相应单词的输出词向量，即：第一列为词典中第一个单词的输出词向量表示，第$k$列为词典中第k个词的输出词向量表示，记做$v′_{w_k}$。<br><strong>计算输出层每个单元$j$的未激活值，这个$j$就是基本定义中的输出单词(标签)在词典中的下标。</strong></p>
 <script type="math/tex; mode=display">
-u_j = {v^{\prime}_{w_j}}^T h \tag{2}</script><p>$v′_{w_j}$是$W′$的第$j$列，$h$实际上就是某个样本对$(w_I,w_O)$中的$w_I$的输入词向量（CBOW中为上下文词的输入词向量），当$O=j$时，$v′_{w_j}$实际上就是$w_O$的输出词向量（CBOW中为中心词的输出词向量），因此$u_j$衡量了二者的相似性，也就是共现性。</p>
+u_j = {v^{\prime}_{w_j}}^T h \tag{2}</script><p>$v^\prime_{w_j}$是$W^\prime$的第$j$列，$h$实际上就是某个样本对$(w_I,w_O)$中的$w_I$的输入词向量（CBOW中为上下文词的输入词向量），当$O=j$时，$v^\prime_{w_j}$实际上就是$w_O$的输出词向量（CBOW中为中心词的输出词向量），因此$u_j$衡量了二者的相似性，也就是共现性。</p>
 <p>计算输出层每个单元$j$<strong>激活值</strong>，使用softmax激活函数，这个激活值就是用来近似输出单词的后验概率分布，该分布是词典上所有单词的多项式分布：$Mult(V, \mathbf p(w_j|w_I)), j=1,2…,V$，即词典上所有输出单词$w_j$都有一个作为上下文单词的中心词的概率，所有概率和为1。</p>
 <script type="math/tex; mode=display">
 p(w_j|w_I) = y_j = softmax(u_j) = \frac{exp(u_j)}{\sum_{j^{\prime}=1}^V exp(u_{j^{\prime}})} \tag{3}</script><p>$y_j$是第$j$个输出神经元的激活值.</p>
 <p>(1)、(2)代入(3)得到：</p>
 <script type="math/tex; mode=display">
-p(w_j|w_I)=\frac{\exp({\mathbf v_{w_j}’}^T \mathbf v_{w_I})}{\sum_{j’=1}^V\exp({\mathbf v_{w_j}’}^T \mathbf v_{w_I})}   \tag{4}</script><p>我们的优化目标是，对于$j=O,p(w_j|w_I)→1$, 对于$j≠O$,$p(w_j|w_I)→0$<br>但是这个式子是优化难点，<strong>分母上需要计算每个输出单词的未激活值，计算复杂度太高</strong>。这也是后面优化技术出现的原因。<br>再强调一遍，对于某个单词$w$，$v_w$和$v′_w$是单词的两种向量表示形式。其中$v_w$实际上是权重矩阵$W$（input-&gt;hidden）的某一行向量，$v′w$则是权重矩阵$W′$（hidden-&gt;output）的某一列向量。前者称作输入向量，后者称作输出向量。</p>
+p(w_j|w_I)=\frac{\exp({\mathbf v_{w_j}’}^T \mathbf v_{w_I})}{\sum_{j’=1}^V\exp({\mathbf v_{w_j}’}^T \mathbf v_{w_I})}   \tag{4}</script><p>我们的优化目标是，对于$j=O,p(w_j|w_I)→1$, 对于$j≠O$,$p(w_j|w_I)→0$<br>但是这个式子是优化难点，<strong>分母上需要计算每个输出单词的未激活值，计算复杂度太高</strong>。这也是后面优化技术出现的原因。<br>再强调一遍，对于某个单词$w$，$v_w$和$v^\prime_w$是单词的两种向量表示形式。其中$v_w$实际上是权重矩阵$W$（input-&gt;hidden）的某一行向量，$v^\prime_w$则是权重矩阵$W′$（hidden-&gt;output）的某一列向量。前者称作输入向量，后者称作输出向量。</p>
 <p><strong>损失函数定义和优化</strong><br><strong>1）损失函数定义</strong><br>分母上需要计算每个输出词的未激活值，计算复杂度过高，实践中这种方法是行不通的，因此需要优化。下面给出CBOW模型的损失函数和梯度计算方法。</p>
 <p>这里使用的损失函数实际上是交叉熵损失函数$E=−∑_jc_jlogp(x_j)$($x_j$理解为输入one_hot样本，$p$理解为整个神经网络, 因此$p(x_j)$在该问题中就是最终的输出神经元激活值$y_j$)。$c_j$是样本$x_j$的真实标签，对于某个样本实例，在输出神经元上，只有一个分量的$c_j=1$，其余为0，不妨令这个分量为$j^∗$。化简即：$E=−logp(w_O|w_I)$为本问题的交叉熵损失函数。推导：对于单样本而言，最大化似然概率：</p>
 <script type="math/tex; mode=display">
@@ -337,9 +327,9 @@ p(w_j|w_I)=\frac{\exp({\mathbf v_{w_j}’}^T \mathbf v_{w_I})}{\sum_{j’=1}^V\e
 E = -u_{j^{*}} + log \sum_{j^{\prime}=1}^V exp(u_j^{\prime})</script><p>接下来使用梯度下降和误差反向传播进行优化，这部分比较简单，具体推导不细说，下面是对单个样本实例的更新公式。<br><strong>2）输出层到隐藏层</strong><br>先求$E$对$u_j$的导数：</p>
 <script type="math/tex; mode=display">
 \frac{\partial E}{\partial u_j}=y_j-t_j:=e_j   \tag{8}</script><p> 当$j=j^∗$时，$t_j=1$, 否则$t_j=0$。（损失的第一项）、损失第二项求导后就是激活值$y_j$。</p>
-<p>再求$E$关于权重矩阵$W′$的元素$w_{ij}′$的导数，一个元素$w′_{ij}$只和隐藏层神经元$h_i$、输出层未激活神经元$u_j$相连接。</p>
+<p>再求$E$关于权重矩阵$W^\prime$的元素$w_{ij}′$的导数，一个元素$w^\prime_{ij}$只和隐藏层神经元$h_i$、输出层未激活神经元$u_j$相连接。</p>
 <script type="math/tex; mode=display">
-\frac{\partial E}{\partial w_{ij}’}=\frac{\partial E}{\partial u_j}\cdot \frac{\partial u_j}{\partial w_{ij}^{\prime}}=e_j\cdot h_i \tag{9}</script><p>使用SGD更新$w′_{ij}$:</p>
+\frac{\partial E}{\partial w_{ij}’}=\frac{\partial E}{\partial u_j}\cdot \frac{\partial u_j}{\partial w_{ij}^{\prime}}=e_j\cdot h_i \tag{9}</script><p>使用SGD更新$w^\prime_{ij}$:</p>
 <script type="math/tex; mode=display">
 \begin{align} {w_{ij}^{\prime}}^{(new)}={w_{ij}^{\prime}}^{(old)}-\eta \cdot e_j \cdot h_i\tag{10} \end{align}</script><p>或者一次性更新输出神经元$j$对应的单词$w_j$的输出词向量$v_{w_j}^\prime$，也即$W′$的第$j$列（<strong>输出神经元$j$的误差$e_j$传播到和它相连的权重向量$v_{w_j}^\prime$</strong>）</p>
 <script type="math/tex; mode=display">
@@ -413,9 +403,9 @@ f\mu_i = \frac{exp(W_{i}^TX)}{\sum_j exp(W_j^TX)} \quad\quad i,j\in\{1,2,3..\}</
 <p><img src="C:\Users\shuli.gao\AppData\Roaming\Typora\typora-user-images\1572231931838.png" alt="1572231931838"></p>
 <p>​      上图是Soft-Max应用的全过程，包括参数层的更新，输出层的的输出，Soft-Max层的概率归一化以及真实标签与Soft-max层的损失计算。</p>
 <p><img src="C:\Users\shuli.gao\AppData\Roaming\Typora\typora-user-images\1572232287323.png" alt="1572232287323"></p>
-<p>​     必须注意的是：S(y) is the output of your softmax function. It is a <strong>prediction</strong>, so we can also call it y_hat.  L is the <strong>ground truth!</strong> The one hot encoded label of the true class, only one entry is one, the rest are zeroes. For each entry in your output vector, Step 1 Softmax takes the log of that first entry, usually an less-than-one number, so it’s very negative for example log_base_2 of 0.7 is negative 0.5145731728297583 and to the -0.5145731728297583th power is 0.7 , Step 2 the entry is <strong>multiplied by the ground truth <code>log(0.7)*1</code></strong> , and then Step 3 we do that for each of the entry <code>log(0.2)*0</code> which is of course zero and then <code>log(0.1)*0</code> which is also zero, then step 4 because of the big sigma summing simple in front of L_i Log(S_i) we sum all the losses up which is -0.5145731728297583, Step 5 we multiply by -1 because of the big negative sign in the front and turn the loss into a positive number 0.5145731728297583</p>
-<p>​    由以上结果可知，<strong>Binary Cross Entropy aka Log Loss!</strong>，Binary cross entropy loss looks more complicated but it is actually easy if you think of it the right way. Remember there can only be two state of the world in binary classification, either y the ground truth is one or zero.</p>
-<p>​    <strong>Multi-Label Classification</strong>： Each sample can <strong>belong to more than one class</strong>. The CNN will have as well C output neurons. The target vector t can have more than a positive class, so it will be a vector of 0s and 1s with C dimensionality. This task is treated as CC different binary (C′=2,t′=0 or t′=1)(C′=2,t′=0 or t′=1) and independent classification problems, where each output neuron decides if a sample belongs to a class or not.<br>​        <img src="https://gombru.github.io/assets/cross_entropy_loss/multiclass_multilabel.png" alt="img"><br>​       <strong>Two-Class Classification</strong>:  样本只会属于0,1中的一个，属于多分类$k=2$的特殊情况。sigmoid函数的意义为，将输出进行概率映射。sigmoid function$f(\mu_{i})$:</p>
+<p>​        必须注意的是：$S(y)$是soft-max的输出，它是一个预测值，可以命名为$\hat y$。L是真实结果值，即标签。每次输出只有一个是1，其他全为0.对于每一个输出向量，先对预测结果进行softmax，然后再利用真实值与取log之后的预测结果进行相乘（交叉熵损失函数）。如上图的例子，此时得到的结果就是$H(p,q)=-log(0.7)<em>1-0</em>log(0.2)-0*log(0.1)=0.5145731728297583$。所以对于这个样本损失函数是0.5145731728297583.</p>
+<p>​       上面的推到过程实际上就是交叉熵损失函数的计算过程，看起来很难，但是正确理解后，就会变得很容易。记住，对于一个样本的输出只能是一个One-Hot结果，也就是说只有一个值是1，其他值为0.</p>
+<p>​      <strong>Multi-Label Classification</strong>： Each sample can <strong>belong to more than one class</strong>. The CNN will have as well C output neurons. The target vector t can have more than a positive class, so it will be a vector of 0s and 1s with C dimensionality. This task is treated as C different binary (C′=2,t′=0 or t′=1)(C′=2,t′=0 or t′=1) and independent classification problems, where each output neuron decides if a sample belongs to a class or not.<br>​        <img src="https://gombru.github.io/assets/cross_entropy_loss/multiclass_multilabel.png" alt="img"><br>​       <strong>Two-Class Classification</strong>:  样本只会属于0,1中的一个，属于多分类$k=2$的特殊情况。sigmoid函数的意义为，将输出进行概率映射。sigmoid function$f(\mu_{i})$:</p>
 <script type="math/tex; mode=display">
 f\mu_j = \frac{1}{1+exp(-\mu_j)} \quad\quad\quad(2\_1)\\
 \mu_j = W^TX \quad\quad\quad (2\_2)\\</script><p>式2为LR或者NN网络的拟合输出结果，式（2_1）为将结果进行one-hot映射。将式（2_2）代入式（2_1）即可得到式2_3：</p>
@@ -459,7 +449,7 @@ Loss = -(c_0logq_0+c_1logq_1+c_2logq_2)\\
 Loss = -(1*log0.9+0log0.05+0log0.05)\\</script><p>为了不失一般性，则有其Loss函数为：</p>
 <script type="math/tex; mode=display">
 Loss = -\sum_j^N\sum_k^K 1\cdot\{y^j=k\}logp_{model}\\
-p_{model} = f(y_i^j|x^j;\theta^j) = \frac{exp(W_j^TX)}{\sum_{j^`}^Kexp(W_{j^`}^T)}</script><h3 id="3-Hierarchical-soft-max"><a href="#3-Hierarchical-soft-max" class="headerlink" title="3 Hierarchical soft-max"></a>3 Hierarchical soft-max</h3><p>​        每个词都有个输入向量和输出向量。对每个训练样本，输入向量的优化成本不高，因为只有1个，但是输出向量的优化成本很高，需要遍历词典，优化$V$个输出向量。为了优化输出向量，对每个词，需要计算$u_j$未激活值，$y_j$(或SG中的$y_{c,j}$)激活值，误差$e_j$(或SG中的$EI_j$)，最终来更新输出向量$v_{wj′}$.</p>
+p_{model} = f(y_i^j|x^j;\theta^j) = \frac{exp(W_j^TX)}{\sum_{j^\prime}^Kexp(W_{j^\prime}^T)}</script><h3 id="3-Hierarchical-soft-max"><a href="#3-Hierarchical-soft-max" class="headerlink" title="3 Hierarchical soft-max"></a>3 Hierarchical soft-max</h3><p>​        每个词都有个输入向量和输出向量。对每个训练样本，输入向量的优化成本不高，因为只有1个，但是输出向量的优化成本很高，需要遍历词典，优化$V$个输出向量。为了优化输出向量，对每个词，需要计算$u_j$未激活值，$y_j$(或SG中的$y_{c,j}$)激活值，误差$e_j$(或SG中的$EI_j$)，最终来更新输出向量$v_{wj′}$.</p>
 <p>​        显然，对于每一个训练样例都要对所有单词计算上述各值，其成本是昂贵的。特别是对于大型的词汇表，这种计算方式是不切实际的。因此为了解决这个问题，直观的方式是<strong>限制必须要更新的训练样例的输出向量的数目</strong>。一种有效的实现方式就是：hierarchical soft-max（分层soft-max），另一种实现通过负采样(negative sampling)的方式解决。</p>
 <p>​        实际上，这种复杂性主要原因是我们采用多分类建模的形式，共$V$个类。即认为要预测的单词是所有单词上多项式分布，那么肯定就要拟合所有单词的概率值。1种优化思路就是将多分类改成<strong>多个二分类，同时要能够很好、很快的计算训练样本实例的似然值</strong>，这种优化思路对应的方法就是hierarchical soft-max。另一种优化思路就是能不能每次训练1个样本实例的时候，<strong>不全部优化所有单词的输出向量，而是有代表性的优化某些输出向量</strong>，这种优化思路对应的方法就是negative sampling。</p>
 <p>​        这两种方法都是通过<strong>只优化【输出向量更新】</strong>的计算过程来实现的。在我们的公式推导过程中，我们关心的有三个值：（1）$E$，新目标函数；（2）$\frac{∂E}{∂v′_{\omega_j}}$，输出向量的更新公式；（3）$\frac{∂E}{\partial h}$，输入向量的更新公式。</p>
@@ -506,8 +496,8 @@ P_n(w_j) = \frac{f(w_j)^{3/4}}{\sum_{j^{\prime}=1}^Vf(w_j^{\prime})^{3/4}} \tag{
 E=-\log \sigma({\mathbf v_{w_O}^{\prime}}^T\mathbf h)-\sum_{w_j\in W_{neg}} \log \sigma({-\mathbf v_{w_j}^{\prime}}^T\mathbf h)\tag{55}</script><p>其中$w_O$是该训练样本的真实输出单词（the positive sample），$v^\prime_{w_O}$是输出向量；$h$是隐藏层的输出值：在SG模型中，$h=v_{w_I}$;而在CBOW模型中，$h=\frac{1}{C}∑^C_{c=1}v_{w_{I,c}}$。$W_{neg}=\{wj|j=1,…,K\}$是基于分布$Pn(w)$采样的一系列单词。</p>
 <p>类比Hierachical Softmax公式44，这里也都是使用sigmoid函数。<strong>第一项是真实输出单词的损失，第二项是采样的负样本作为输出单词的损失</strong>，<strong>注意sigmoid里面有个负号</strong>。上述损失非常像逻辑回归的损失(伯努利分布取对数得到的)：</p>
 <script type="math/tex; mode=display">
-E = - \sum_i \left(y_i log \sigma (x_i) + (1-y_i) log(1-\sigma(x_i) \right) \\    = - \sum_i \left(y_i log \sigma (x_i) + (1-y_i) log(\sigma(-x_i) \right)</script><p><strong>第一项是正样本的损失，第二项是负样本的损失</strong>。在逻辑回归中，对于某个训练样本，二者取其一。在word2vec中，由于将多分类预测映射到二叉树树上，预测中心词变成预测多个二分类，二者都取。第一项根据真实训练样本，第二项根据负采样样本。优化的目标是，最大化真实样本的概率$σ(v′_{w_O}^Th)$, 最小化负样本的概率$σ(v′_{w_j}^Th)$。</p>
-<p>对于误差函数$E$，我们先求关于$v′_{w_j}^Th$的偏导数，得：</p>
+E = - \sum_i \left(y_i log \sigma (x_i) + (1-y_i) log(1-\sigma(x_i) \right) \\    = - \sum_i \left(y_i log \sigma (x_i) + (1-y_i) log(\sigma(-x_i) \right)</script><p><strong>第一项是正样本的损失，第二项是负样本的损失</strong>。在逻辑回归中，对于某个训练样本，二者取其一。在word2vec中，由于将多分类预测映射到二叉树树上，预测中心词变成预测多个二分类，二者都取。第一项根据真实训练样本，第二项根据负采样样本。优化的目标是，最大化真实样本的概率$σ(v′_{w_O}^Th)$, 最小化负样本的概率$σ((v^\prime_{w_j})^Th)$。</p>
+<p>对于损失函数$E$，我们先求关于$(v^\prime_{w_j})^Th$的偏导数，得：</p>
 <script type="math/tex; mode=display">
 \begin{align} &\frac{\partial E}{\partial{ \mathbf v_{w_j}^{\prime}}^T\mathbf h}= \begin{cases} \sigma({\mathbf v_{w_j}^{\prime}}^T\mathbf h)-1 , &\text{if }\space w_j=w_O \\ \sigma({\mathbf v_{w_j}^{\prime}}^T\mathbf h), &\text {if}\space w_j\in W_{neg} \end{cases}\tag{56}\\ &\space\space\space\space\space\space\space\space\space\space\space\space\space\space =\sigma({\mathbf v_{w_j}^{\prime}}^T\mathbf h)-t_j \tag{57} \end{align}</script><p>其中，当$w_j$是一个正样本时，$t_j=1$；否则$t_j=0$。</p>
 <p>接下来我们计算E关于单词$wj$的输出向量$v′_{w_j}$的偏导数：</p>
@@ -523,11 +513,13 @@ E = - \sum_i \left(y_i log \sigma (x_i) + (1-y_i) log(1-\sigma(x_i) \right) \\  
 {\mathbf v_{W_{I,c}}}^{(new)}={\mathbf v_{W_{I,c}}}^{(old)}-\frac{1}{C} \cdot \eta \cdot \mathbf {EH}^T</script><p>对于SG模型，我们需要计算上下文单词中的每个单词的$EH$, 即，重复上述过程<strong>C</strong>次，每次得到一个$EH$向量，最后将C个$EH$累加，得到的向量作为该样本最终的$EH$。代入公式33，这里再写一遍。</p>
 <script type="math/tex; mode=display">
 {\mathbf v_{w_I}}^{(new)}={\mathbf v_{w_I}}^{(old)}-\eta \cdot \mathbf{EH}^T</script><p>参考文献：</p>
-<p>[1] Hierarchical soft-max详细解释: <a href="https://zhuanlan.zhihu.com/p/74385190" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/74385190</a></p>
-<p>[2] Hierarchical Soft-Max paper: Hierarchical Probabilistic Neural Network Language Model </p>
-<p>[3] Soft-Max仿真: <a href="https://hannekedenouden.ruhosting.nl/RLtutorial/html/SoftMax.html" target="_blank" rel="noopener">https://hannekedenouden.ruhosting.nl/RLtutorial/html/SoftMax.html</a></p>
-<p>[4] CBOW和Skip-Gram经典详解: <a href="http://xtf615.com/2018/10/05/word2vec/" target="_blank" rel="noopener">http://xtf615.com/2018/10/05/word2vec/</a></p>
-<p>[5] Embedding最全解释: <a href="https://lumingdong.cn/application-practice-of-embedding-in-recommendation-system.html" target="_blank" rel="noopener">https://lumingdong.cn/application-practice-of-embedding-in-recommendation-system.html</a></p>
+<p>[1] Mikolov T , Sutskever I , Chen K , et al. Distributed Representations of Words and Phrases and their Compositionality[J]. Advances in Neural Information Processing Systems, 2013, 26:3111-3119.</p>
+<p>[2] Rong X . word2vec Parameter Learning Explained[J]. Computer Science, 2014.</p>
+<p>[3] Hierarchical Soft-Max paper: Hierarchical Probabilistic Neural Network Language Model </p>
+<p>[4] Hierarchical soft-max详细解释: <a href="https://zhuanlan.zhihu.com/p/74385190" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/74385190</a> </p>
+<p>[5] Soft-Max仿真: <a href="https://hannekedenouden.ruhosting.nl/RLtutorial/html/SoftMax.html" target="_blank" rel="noopener">https://hannekedenouden.ruhosting.nl/RLtutorial/html/SoftMax.html</a></p>
+<p>[6] CBOW和Skip-Gram经典详解: <a href="http://xtf615.com/2018/10/05/word2vec/" target="_blank" rel="noopener">http://xtf615.com/2018/10/05/word2vec/</a></p>
+<p>[7] Embedding最全解释: <a href="https://lumingdong.cn/application-practice-of-embedding-in-recommendation-system.html" target="_blank" rel="noopener">https://lumingdong.cn/application-practice-of-embedding-in-recommendation-system.html</a></p>
 
           
         
