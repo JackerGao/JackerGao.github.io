@@ -79,15 +79,15 @@
 
 
 
-<meta name="description" content="Graph Embedding and Corresponding Knowledge1. Neural Network language model1.1 CBOW(Continue bag of words)CBOW最早是Mikolov等大牛在2013年提出的。CBOW要利用若干个上下文词来预测中心词。之所以称为continuous bag-of-word，即连续词袋，是因为在考虑上下文单词时">
+<meta name="description" content="Word2Vec and Corresponding Knowledge1. Neural Network language model1.1 CBOW(Continue bag of words)CBOW最早是Mikolov等大牛在2013年提出的。CBOW要利用若干个上下文词来预测中心词。之所以称为continuous bag-of-word，即连续词袋，是因为在考虑上下文单词时，这些上下文单">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Word2Vec Paper Understanding">
 <meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;11&#x2F;26&#x2F;GraphEnbedding&#x2F;index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="Graph Embedding and Corresponding Knowledge1. Neural Network language model1.1 CBOW(Continue bag of words)CBOW最早是Mikolov等大牛在2013年提出的。CBOW要利用若干个上下文词来预测中心词。之所以称为continuous bag-of-word，即连续词袋，是因为在考虑上下文单词时">
+<meta property="og:description" content="Word2Vec and Corresponding Knowledge1. Neural Network language model1.1 CBOW(Continue bag of words)CBOW最早是Mikolov等大牛在2013年提出的。CBOW要利用若干个上下文词来预测中心词。之所以称为continuous bag-of-word，即连续词袋，是因为在考虑上下文单词时，这些上下文单">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="c:&#x2F;Users&#x2F;shuli.gao&#x2F;AppData&#x2F;Roaming&#x2F;Typora&#x2F;typora-user-images&#x2F;1574821234004.png">
-<meta property="og:image" content="c:&#x2F;Users&#x2F;shuli.gao&#x2F;AppData&#x2F;Roaming&#x2F;Typora&#x2F;typora-user-images&#x2F;1574750288068.png">
+<meta property="og:image" content="d:&#x2F;myallfile&#x2F;work&#x2F;机器学习知识库&#x2F;AlgorithmUnderstanding&#x2F;source&#x2F;images&#x2F;1574821234004.png">
+<meta property="og:image" content="d:&#x2F;myallfile&#x2F;work&#x2F;机器学习知识库&#x2F;AlgorithmUnderstanding&#x2F;source&#x2F;images&#x2F;1574750288068.png">
 <meta property="og:image" content="http:&#x2F;&#x2F;xtf615.com&#x2F;picture&#x2F;machine-learning&#x2F;skip-gram.png">
 <meta property="og:image" content="https:&#x2F;&#x2F;hannekedenouden.ruhosting.nl&#x2F;RLtutorial&#x2F;html&#x2F;images&#x2F;figs&#x2F;softmax2.png">
 <meta property="og:image" content="c:&#x2F;Users&#x2F;shuli.gao&#x2F;AppData&#x2F;Roaming&#x2F;Typora&#x2F;typora-user-images&#x2F;1572231931838.png">
@@ -98,9 +98,9 @@
 <meta property="og:image" content="https:&#x2F;&#x2F;pic4.zhimg.com&#x2F;80&#x2F;v2-6a605083842a6ab1d1180a8bfbe6bf7b_hd.jpg">
 <meta property="og:image" content="https:&#x2F;&#x2F;www.zhihu.com&#x2F;equation?tex=p%28v%7Ccontext%29%3D%5Cprod_%7Bi%3D1%7D%5E%7Bm%7Dp%28b_i%28v%29%7Cb_1%28v%29%2C...%2Cb_%7Bi-1%7D%28v%29%2Ccontext%29">
 <meta property="og:image" content="https:&#x2F;&#x2F;www.zhihu.com&#x2F;equation?tex=p%28w_t%7Ccontext%29%3Dp%28D_1%3D1%7Ccontext%29p%28D_2%3D0%7CD_1%3D1%29...p%28w_t%7CD_k%3D1%29">
-<meta property="og:updated_time" content="2019-11-27T03:01:21.201Z">
+<meta property="og:updated_time" content="2019-11-27T03:20:49.405Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="c:&#x2F;Users&#x2F;shuli.gao&#x2F;AppData&#x2F;Roaming&#x2F;Typora&#x2F;typora-user-images&#x2F;1574821234004.png">
+<meta name="twitter:image" content="d:&#x2F;myallfile&#x2F;work&#x2F;机器学习知识库&#x2F;AlgorithmUnderstanding&#x2F;source&#x2F;images&#x2F;1574821234004.png">
 
 
 
@@ -310,9 +310,9 @@
       
 
       
-        <h1 id="Graph-Embedding-and-Corresponding-Knowledge"><a href="#Graph-Embedding-and-Corresponding-Knowledge" class="headerlink" title="Graph Embedding and Corresponding Knowledge"></a>Graph Embedding and Corresponding Knowledge</h1><h2 id="1-Neural-Network-language-model"><a href="#1-Neural-Network-language-model" class="headerlink" title="1. Neural Network language model"></a>1. Neural Network language model</h2><h3 id="1-1-CBOW-Continue-bag-of-words"><a href="#1-1-CBOW-Continue-bag-of-words" class="headerlink" title="1.1 CBOW(Continue bag of words)"></a>1.1 CBOW(Continue bag of words)</h3><p>CBOW最早是Mikolov等大牛在2013年提出的。CBOW要利用若干个上下文词来预测中心词。之所以称为continuous bag-of-word，即连续词袋，是因为在考虑上下文单词时，这些上下文单词的顺序是忽略的。我们先从最简单版本的CBOW开始讲，即上下文词只有1个。</p>
+        <h1 id="Word2Vec-and-Corresponding-Knowledge"><a href="#Word2Vec-and-Corresponding-Knowledge" class="headerlink" title="Word2Vec and Corresponding Knowledge"></a>Word2Vec and Corresponding Knowledge</h1><h2 id="1-Neural-Network-language-model"><a href="#1-Neural-Network-language-model" class="headerlink" title="1. Neural Network language model"></a>1. Neural Network language model</h2><h3 id="1-1-CBOW-Continue-bag-of-words"><a href="#1-1-CBOW-Continue-bag-of-words" class="headerlink" title="1.1 CBOW(Continue bag of words)"></a>1.1 CBOW(Continue bag of words)</h3><p>CBOW最早是Mikolov等大牛在2013年提出的。CBOW要利用若干个上下文词来预测中心词。之所以称为continuous bag-of-word，即连续词袋，是因为在考虑上下文单词时，这些上下文单词的顺序是忽略的。我们先从最简单版本的CBOW开始讲，即上下文词只有1个。</p>
 <h4 id="One-word-context"><a href="#One-word-context" class="headerlink" title="One-word context"></a>One-word context</h4><p>先从最简单的CBOW开始讲，即只使用1个上下文单词<script type="math/tex">w_I</script>来预测中心词<script type="math/tex">w_O</script>。<br>如图1描述的就是One-word context定义之下的神经网络模型。词典大小为V, 隐藏层的大小为N，相邻层的神经元是全连接的。输入层是一个用one-hot方式编码的单词向量$x=(x_1,…x_k,…,x_V)$，其中只有一个$x_k$为1，其余均为0。</p>
-<p><img src="C:\Users\shuli.gao\AppData\Roaming\Typora\typora-user-images\1574821234004.png" alt="1574821234004"></p>
+<p><img src="D:\myallfile\work\机器学习知识库\AlgorithmUnderstanding\source\images\1574821234004.png" alt="1574821234004"></p>
 <p><strong>输入层到隐藏层</strong><br>输入层到隐藏层的连接权重可以表示使用$W_{V \times N}$:</p>
 <script type="math/tex; mode=display">
 \mathbf W=  \begin{pmatrix}  w_{11}& w_{12}& …& w_{1N}\\  w_{21}& w_{22}& … & w_{2N}\\  …& … & … & …\\  w_{V1}& w_{V2}&. .. &w_{VN}  \end{pmatrix}</script><p>$W_{V \times N}$每行是相应单词的输入词向量表示，即第一行为词典中第一个单词的输入词向量表示，第$k$行为词典中第$k$个词的输入词向量表示，解释如下：</p>
@@ -363,7 +363,7 @@ h_i=\sum_{k=1}^V x_k \cdot w_{ki} \tag{13}</script><p>有：</p>
 <p>ii）如果过低地估计了某个单词$w_j$作为最终输出中心词的概率（即：$y_j&lt;t_j$），相应$e$分量$e_j$小于0，则(16)式更新相当于将$v_{W_I}$输入上下文词向量第$j$个分量加上输出中心词$v′_{w_j}$词向量的第$j$个分量，使得二者接近。</p>
 <p>因此，上下文单词$w_I$（context word ）的输入向量的更新取决于词汇表中所有单词预测为中心词的误差$e$。预测误差越大，则该单词对于上下文单词的输入向量的更新过程影响越大。</p>
 <h4 id="Multi-word-context"><a href="#Multi-word-context" class="headerlink" title="Multi-word context"></a>Multi-word context</h4><p>基于multi-word context的CBOW模型利用多个上下文单词来预测中心单词，且不同上下文单词不考虑顺序。神经网络结构如图2所示：</p>
-<p><img src="C:\Users\shuli.gao\AppData\Roaming\Typora\typora-user-images\1574750288068.png" alt="1574750288068"></p>
+<p><img src="D:\myallfile\work\机器学习知识库\AlgorithmUnderstanding\source\images\1574750288068.png" alt="1574750288068"></p>
 <p>其隐藏层的输出值的计算过程为：首先将输入的上下文单词（context words）的向量相加起来并取其平均值，接着与input→hidden的权重矩阵相乘，作为最终的结果，公式如下：</p>
 <script type="math/tex; mode=display">
 \begin{align} & \mathbf h = \frac{1}{C} \mathbf W^T(\mathbf x_1 + \mathbf x_2 + \cdots +\mathbf x_C)\tag{17}\\ & = \frac{1}{C}(\mathbf v_{w_1}+\mathbf v_{w_2} + \cdots+\mathbf v_{w_C})^T\tag{18} \end{align}</script><p>C为上下文单词的数量，$w_1,w_2,…,w_C$为上下文单词，$v_w$是上下文单词$w$的输入词向量。<br>损失函数如下：</p>
@@ -677,7 +677,7 @@ E = - \sum_i \left(y_i log \sigma (x_i) + (1-y_i) log(1-\sigma(x_i) \right) \\  
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Graph-Embedding-and-Corresponding-Knowledge"><span class="nav-number">1.</span> <span class="nav-text">Graph Embedding and Corresponding Knowledge</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Neural-Network-language-model"><span class="nav-number">1.1.</span> <span class="nav-text">1. Neural Network language model</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-CBOW-Continue-bag-of-words"><span class="nav-number">1.1.1.</span> <span class="nav-text">1.1 CBOW(Continue bag of words)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#One-word-context"><span class="nav-number">1.1.1.1.</span> <span class="nav-text">One-word context</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Multi-word-context"><span class="nav-number">1.1.1.2.</span> <span class="nav-text">Multi-word context</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-Skip-Gram"><span class="nav-number">1.1.2.</span> <span class="nav-text">1.2 Skip-Gram</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Optimization-methods"><span class="nav-number">1.2.</span> <span class="nav-text">Optimization methods</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-Soft-Max-vs-Sigmoid"><span class="nav-number">1.2.1.</span> <span class="nav-text">2 Soft-Max vs Sigmoid</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-Soft-Max和Sigmoid及对应的损失函数"><span class="nav-number">1.2.1.1.</span> <span class="nav-text">2.1 Soft-Max和Sigmoid及对应的损失函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-Soft-Max与sigmoid的同一性"><span class="nav-number">1.2.1.2.</span> <span class="nav-text">2.2 Soft-Max与sigmoid的同一性</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-Hierarchical-soft-max"><span class="nav-number">1.2.2.</span> <span class="nav-text">3 Hierarchical soft-max</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#4-Negative-Sampling"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">4 Negative Sampling</span></a></li></ol></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Word2Vec-and-Corresponding-Knowledge"><span class="nav-number">1.</span> <span class="nav-text">Word2Vec and Corresponding Knowledge</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Neural-Network-language-model"><span class="nav-number">1.1.</span> <span class="nav-text">1. Neural Network language model</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-CBOW-Continue-bag-of-words"><span class="nav-number">1.1.1.</span> <span class="nav-text">1.1 CBOW(Continue bag of words)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#One-word-context"><span class="nav-number">1.1.1.1.</span> <span class="nav-text">One-word context</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Multi-word-context"><span class="nav-number">1.1.1.2.</span> <span class="nav-text">Multi-word context</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-Skip-Gram"><span class="nav-number">1.1.2.</span> <span class="nav-text">1.2 Skip-Gram</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Optimization-methods"><span class="nav-number">1.2.</span> <span class="nav-text">Optimization methods</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-Soft-Max-vs-Sigmoid"><span class="nav-number">1.2.1.</span> <span class="nav-text">2 Soft-Max vs Sigmoid</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-Soft-Max和Sigmoid及对应的损失函数"><span class="nav-number">1.2.1.1.</span> <span class="nav-text">2.1 Soft-Max和Sigmoid及对应的损失函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-Soft-Max与sigmoid的同一性"><span class="nav-number">1.2.1.2.</span> <span class="nav-text">2.2 Soft-Max与sigmoid的同一性</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-Hierarchical-soft-max"><span class="nav-number">1.2.2.</span> <span class="nav-text">3 Hierarchical soft-max</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#4-Negative-Sampling"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">4 Negative Sampling</span></a></li></ol></li></ol></li></ol></li></ol></div>
             
 
           </div>
