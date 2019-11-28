@@ -87,21 +87,21 @@
 <meta property="og:site_name" content="ML">
 <meta property="og:description" content="Word2Vec and Corresponding Knowledge1. Neural Network language model1.1 CBOW(Continue bag of words)CBOW最早是Mikolov等大牛在2013年提出的。CBOW要利用若干个上下文词来预测中心词。之所以称为continuous bag-of-word，即连续词袋，是因为在考虑上下文单词时，这些上下文单">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="d:&#x2F;myallfile&#x2F;work&#x2F;机器学习知识库&#x2F;AlgorithmUnderstanding&#x2F;source&#x2F;images&#x2F;1574821234004.png">
-<meta property="og:image" content="d:&#x2F;myallfile&#x2F;work&#x2F;机器学习知识库&#x2F;AlgorithmUnderstanding&#x2F;source&#x2F;images&#x2F;1574750288068.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;images&#x2F;1574821234004.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;11&#x2F;26&#x2F;GraphEnbedding&#x2F;myallfile&#x2F;work&#x2F;机器学习知识库&#x2F;AlgorithmUnderstanding&#x2F;source&#x2F;images&#x2F;1574750288068.png">
 <meta property="og:image" content="http:&#x2F;&#x2F;xtf615.com&#x2F;picture&#x2F;machine-learning&#x2F;skip-gram.png">
 <meta property="og:image" content="https:&#x2F;&#x2F;hannekedenouden.ruhosting.nl&#x2F;RLtutorial&#x2F;html&#x2F;images&#x2F;figs&#x2F;softmax2.png">
-<meta property="og:image" content="c:&#x2F;Users&#x2F;shuli.gao&#x2F;AppData&#x2F;Roaming&#x2F;Typora&#x2F;typora-user-images&#x2F;1572231931838.png">
-<meta property="og:image" content="c:&#x2F;Users&#x2F;shuli.gao&#x2F;AppData&#x2F;Roaming&#x2F;Typora&#x2F;typora-user-images&#x2F;1572232287323.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;11&#x2F;26&#x2F;GraphEnbedding&#x2F;Users&#x2F;shuli.gao&#x2F;AppData&#x2F;Roaming&#x2F;Typora&#x2F;typora-user-images&#x2F;1572231931838.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;11&#x2F;26&#x2F;GraphEnbedding&#x2F;Users&#x2F;shuli.gao&#x2F;AppData&#x2F;Roaming&#x2F;Typora&#x2F;typora-user-images&#x2F;1572232287323.png">
 <meta property="og:image" content="https:&#x2F;&#x2F;gombru.github.io&#x2F;assets&#x2F;cross_entropy_loss&#x2F;multiclass_multilabel.png">
 <meta property="og:image" content="https:&#x2F;&#x2F;gombru.github.io&#x2F;assets&#x2F;cross_entropy_loss&#x2F;sigmoid.png">
 <meta property="og:image" content="https:&#x2F;&#x2F;pic4.zhimg.com&#x2F;80&#x2F;v2-5fb23f02cbf960edcfc33f21604ab78b_hd.jpg">
 <meta property="og:image" content="https:&#x2F;&#x2F;pic4.zhimg.com&#x2F;80&#x2F;v2-6a605083842a6ab1d1180a8bfbe6bf7b_hd.jpg">
 <meta property="og:image" content="https:&#x2F;&#x2F;www.zhihu.com&#x2F;equation?tex=p%28v%7Ccontext%29%3D%5Cprod_%7Bi%3D1%7D%5E%7Bm%7Dp%28b_i%28v%29%7Cb_1%28v%29%2C...%2Cb_%7Bi-1%7D%28v%29%2Ccontext%29">
 <meta property="og:image" content="https:&#x2F;&#x2F;www.zhihu.com&#x2F;equation?tex=p%28w_t%7Ccontext%29%3Dp%28D_1%3D1%7Ccontext%29p%28D_2%3D0%7CD_1%3D1%29...p%28w_t%7CD_k%3D1%29">
-<meta property="og:updated_time" content="2019-11-27T12:10:58.081Z">
+<meta property="og:updated_time" content="2019-11-28T02:43:08.661Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="d:&#x2F;myallfile&#x2F;work&#x2F;机器学习知识库&#x2F;AlgorithmUnderstanding&#x2F;source&#x2F;images&#x2F;1574821234004.png">
+<meta name="twitter:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;images&#x2F;1574821234004.png">
 
 
 
@@ -372,7 +372,7 @@
       
         <h1 id="Word2Vec-and-Corresponding-Knowledge"><a href="#Word2Vec-and-Corresponding-Knowledge" class="headerlink" title="Word2Vec and Corresponding Knowledge"></a>Word2Vec and Corresponding Knowledge</h1><h2 id="1-Neural-Network-language-model"><a href="#1-Neural-Network-language-model" class="headerlink" title="1. Neural Network language model"></a>1. Neural Network language model</h2><h3 id="1-1-CBOW-Continue-bag-of-words"><a href="#1-1-CBOW-Continue-bag-of-words" class="headerlink" title="1.1 CBOW(Continue bag of words)"></a>1.1 CBOW(Continue bag of words)</h3><p>CBOW最早是Mikolov等大牛在2013年提出的。CBOW要利用若干个上下文词来预测中心词。之所以称为continuous bag-of-word，即连续词袋，是因为在考虑上下文单词时，这些上下文单词的顺序是忽略的。我们先从最简单版本的CBOW开始讲，即上下文词只有1个。</p>
 <h4 id="One-word-context"><a href="#One-word-context" class="headerlink" title="One-word context"></a>One-word context</h4><p>先从最简单的CBOW开始讲，即只使用1个上下文单词<script type="math/tex">w_I</script>来预测中心词<script type="math/tex">w_O</script>。<br>如图1描述的就是One-word context定义之下的神经网络模型。词典大小为V, 隐藏层的大小为N，相邻层的神经元是全连接的。输入层是一个用one-hot方式编码的单词向量$x=(x_1,…x_k,…,x_V)$，其中只有一个$x_k$为1，其余均为0。</p>
-<p><img src="D:\myallfile\work\机器学习知识库\AlgorithmUnderstanding\source\images\1574821234004.png" alt="1574821234004"></p>
+<p><img src="/images/1574821234004.png" alt="1574821234004"></p>
 <p><strong>输入层到隐藏层</strong><br>输入层到隐藏层的连接权重可以表示使用$W_{V \times N}$:</p>
 <script type="math/tex; mode=display">
 \mathbf W=  \begin{pmatrix}  w_{11}& w_{12}& …& w_{1N}\\  w_{21}& w_{22}& … & w_{2N}\\  …& … & … & …\\  w_{V1}& w_{V2}&. .. &w_{VN}  \end{pmatrix}</script><p>$W_{V \times N}$每行是相应单词的输入词向量表示，即第一行为词典中第一个单词的输入词向量表示，第$k$行为词典中第$k$个词的输入词向量表示，解释如下：</p>
@@ -424,7 +424,7 @@ h_i=\sum_{k=1}^V x_k \cdot w_{ki} \tag{13}</script><p>有：</p>
 <p>ii）如果过低地估计了某个单词$w_j$作为最终输出中心词的概率（即：$y_j&lt;t_j$），相应$e$分量$e_j$小于0，则(16)式更新相当于将$v_{W_I}$输入上下文词向量第$j$个分量加上输出中心词$v′_{w_j}$词向量的第$j$个分量，使得二者接近。</p>
 <p>因此，上下文单词$w_I$（context word ）的输入向量的更新取决于词汇表中所有单词预测为中心词的误差$e$。预测误差越大，则该单词对于上下文单词的输入向量的更新过程影响越大。</p>
 <h4 id="Multi-word-context"><a href="#Multi-word-context" class="headerlink" title="Multi-word context"></a>Multi-word context</h4><p>基于multi-word context的CBOW模型利用多个上下文单词来预测中心单词，且不同上下文单词不考虑顺序。神经网络结构如图2所示：</p>
-<p><img src="D:\myallfile\work\机器学习知识库\AlgorithmUnderstanding\source\images\1574750288068.png" alt="1574750288068"></p>
+<p><img src="/2019/11/26/GraphEnbedding/myallfile\work\机器学习知识库\AlgorithmUnderstanding\source\images\1574750288068.png" alt="1574750288068"></p>
 <p>其隐藏层的输出值的计算过程为：首先将输入的上下文单词（context words）的向量相加起来并取其平均值，接着与input→hidden的权重矩阵相乘，作为最终的结果，公式如下：</p>
 <script type="math/tex; mode=display">
 \begin{align} & \mathbf h = \frac{1}{C} \mathbf W^T(\mathbf x_1 + \mathbf x_2 + \cdots +\mathbf x_C)\tag{17}\\ & = \frac{1}{C}(\mathbf v_{w_1}+\mathbf v_{w_2} + \cdots+\mathbf v_{w_C})^T\tag{18} \end{align}</script><p>C为上下文单词的数量，$w_1,w_2,…,w_C$为上下文单词，$v_w$是上下文单词$w$的输入词向量。<br>损失函数如下：</p>
@@ -462,8 +462,7 @@ f\mu_i = \frac{exp(\mu_i)}{\sum_j exp(\mu_j)} \quad i,j\in \{1,2,3...\}\\
 f\mu_i = \frac{exp(W_{i}^TX)}{\sum_j exp(W_j^TX)} \quad\quad i,j\in\{1,2,3..\}</script><p>其中，$i$代表一个样本输出的后对应的one-hot结果，$j$取所有样本集合。Soft-Max仿真如图（2_1）:</p>
 <center>
     <img style="border-radius: 0.3125em;
-    box-shadow: 0 2px 4px 0 rgba(34,36,38,.12),0 2px 10px 0 rgba(34,36,38,.08);" 
-    src="https://hannekedenouden.ruhosting.nl/RLtutorial/html/images/figs/softmax2.png">
+    box-shadow: 0 2px 4px 0 rgba(34,36,38,.12),0 2px 10px 0 rgba(34,36,38,.08);" src="https://hannekedenouden.ruhosting.nl/RLtutorial/html/images/figs/softmax2.png">
     <br>
     <div style="color:orange; border-bottom: 1px solid #d9d9d9;
     display: inline-block;
@@ -472,9 +471,9 @@ f\mu_i = \frac{exp(W_{i}^TX)}{\sum_j exp(W_j^TX)} \quad\quad i,j\in\{1,2,3..\}</
 </center>
 
 <p>  其应用一般为输出层，用法如下：</p>
-<p><img src="C:\Users\shuli.gao\AppData\Roaming\Typora\typora-user-images\1572231931838.png" alt="1572231931838"></p>
+<p><img src="/2019/11/26/GraphEnbedding/Users\shuli.gao\AppData\Roaming\Typora\typora-user-images\1572231931838.png" alt="1572231931838"></p>
 <p>​      上图是Soft-Max应用的全过程，包括参数层的更新，输出层的的输出，Soft-Max层的概率归一化以及真实标签与Soft-max层的损失计算。</p>
-<p><img src="C:\Users\shuli.gao\AppData\Roaming\Typora\typora-user-images\1572232287323.png" alt="1572232287323"></p>
+<p><img src="/2019/11/26/GraphEnbedding/Users\shuli.gao\AppData\Roaming\Typora\typora-user-images\1572232287323.png" alt="1572232287323"></p>
 <p>​        必须注意的是：$S(y)$是soft-max的输出，它是一个预测值，可以命名为$\hat y$。L是真实结果值，即标签。每次输出只有一个是1，其他全为0.对于每一个输出向量，先对预测结果进行softmax，然后再利用真实值与取log之后的预测结果进行相乘（交叉熵损失函数）。如上图的例子，此时得到的结果就是$H(p,q)=-log(0.7)<em>1-0</em>log(0.2)-0*log(0.1)=0.5145731728297583$。所以对于这个样本损失函数是0.5145731728297583.</p>
 <p>​       上面的推到过程实际上就是交叉熵损失函数的计算过程，看起来很难，但是正确理解后，就会变得很容易。记住，对于一个样本的输出只能是一个One-Hot结果，也就是说只有一个值是1，其他值为0.</p>
 <p>​      <strong>Multi-Label Classification</strong>： Each sample can <strong>belong to more than one class</strong>. The CNN will have as well C output neurons. The target vector t can have more than a positive class, so it will be a vector of 0s and 1s with C dimensionality. This task is treated as C different binary (C′=2,t′=0 or t′=1)(C′=2,t′=0 or t′=1) and independent classification problems, where each output neuron decides if a sample belongs to a class or not.<br>​        <img src="https://gombru.github.io/assets/cross_entropy_loss/multiclass_multilabel.png" alt="img"><br>​       <strong>Two-Class Classification</strong>:  样本只会属于0,1中的一个，属于多分类$k=2$的特殊情况。sigmoid函数的意义为，将输出进行概率映射。sigmoid function$f(\mu_{i})$:</p>
@@ -484,8 +483,7 @@ f\mu_j = \frac{1}{1+exp(-\mu_j)} \quad\quad\quad(2\_1)\\
 <script type="math/tex; mode=display">
 f{\mu_j}=\frac{1}{exp(-W^TX)} \quad\quad\quad(2\_3)</script><p><center>
     <img style="border-radius: 0.3125em;
-    box-shadow: 0 2px 4px 0 rgba(34,36,38,.12),0 2px 10px 0 rgba(34,36,38,.08);" 
-    src="https://gombru.github.io/assets/cross_entropy_loss/sigmoid.png">
+    box-shadow: 0 2px 4px 0 rgba(34,36,38,.12),0 2px 10px 0 rgba(34,36,38,.08);" src="https://gombru.github.io/assets/cross_entropy_loss/sigmoid.png">
     <br>
     <div style="color:orange; border-bottom: 1px solid #d9d9d9;
     display: inline-block;
