@@ -99,7 +99,7 @@
 <meta property="og:image" content="https:&#x2F;&#x2F;pic4.zhimg.com&#x2F;80&#x2F;v2-6a605083842a6ab1d1180a8bfbe6bf7b_hd.jpg">
 <meta property="og:image" content="https:&#x2F;&#x2F;www.zhihu.com&#x2F;equation?tex=p%28v%7Ccontext%29%3D%5Cprod_%7Bi%3D1%7D%5E%7Bm%7Dp%28b_i%28v%29%7Cb_1%28v%29%2C...%2Cb_%7Bi-1%7D%28v%29%2Ccontext%29">
 <meta property="og:image" content="https:&#x2F;&#x2F;www.zhihu.com&#x2F;equation?tex=p%28w_t%7Ccontext%29%3Dp%28D_1%3D1%7Ccontext%29p%28D_2%3D0%7CD_1%3D1%29...p%28w_t%7CD_k%3D1%29">
-<meta property="og:updated_time" content="2019-11-28T02:52:05.390Z">
+<meta property="og:updated_time" content="2019-11-28T03:52:57.513Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;images&#x2F;1574821234004.png">
 
@@ -420,7 +420,7 @@ h_i=\sum_{k=1}^V x_k \cdot w_{ki} \tag{13}</script><p>有：</p>
 \begin{align} \frac{\partial E}{\partial \mathbf W} &=  \begin{pmatrix}  \frac{\partial E}{\partial w_{11}}& \frac{\partial E}{\partial w_{12}}& …&  \frac{\partial E}{\partial w_{1N}}\\   \frac{\partial E}{\partial w_{21}}&  \frac{\partial E}{\partial w_{22}}& … &  \frac{\partial E}{\partial w_{2N}}\\  …& … & … & …\\   \frac{\partial E}{\partial w_{V1}} &  \frac{\partial E}{\partial w_{V2}} &. .. & \frac{\partial E}{\partial w_{VN}}  \end{pmatrix} \\ &=  \begin{pmatrix}  EH_1 \cdot x_1 &  EH_2 \cdot x_1 & …&  EH_N \cdot x_1\\  EH_1 \cdot x_2 &  EH_2 \cdot x_2 & …&  EH_N \cdot x_2\\  …& … & … & …\\  EH_1 \cdot x_V &  EH_2 \cdot x_V & …&  EH_N \cdot x_V\\  \end{pmatrix} \\  &= \mathbf x \otimes \mathbf{EH} = \mathbf x \mathbf{EH}^T  \end{align}  \tag{15}</script><p>更新输入词向量$v_{w_I}$:</p>
 <script type="math/tex; mode=display">
 {\mathbf v_{W_I}}^{(new)}={\mathbf v_{W_I}}^{(old)}-\eta \cdot \mathbf {EH}^T \tag{16}</script><p>也就是说，对于某个样本而言，上述$x_1,x_2,…,x_V$只有1个值非0。那么式15更新中，只有该行非零，其余行全为0。因此，我们只更新输入上下文词$w_I$对应行的词向量。<br>该梯度更新过程可以使用同样的解释方法，$EH=W′_{N×V}⋅e_{V×1}$，意味着：</p>
-<p>i）如果过高地估计了某个单词$w_j$作为最终输出中心词的概率（即：$y_j&gt;t_j$），相应$e$分量$e_j$大于0，则(16)式更新相当于将$v_{W_I}$输入上下文词向量第$j$个分量减去输出中心词$v_{w_j′}$词向量的第$j$个分量，使得二者远离。</p>
+<p>i）如果过高地估计了某个单词$w_j$作为最终输出中心词的概率（即：$y_j&gt;t_j$），相应$e$分量$e_j$大于0，则(16)式更新相当于将$v_{W_I}$输入上下文词向量第$j$个分量减去输出中心词$v_{w_j^\prime}$词向量的第$j$个分量，使得二者远离。</p>
 <p>ii）如果过低地估计了某个单词$w_j$作为最终输出中心词的概率（即：$y_j&lt;t_j$），相应$e$分量$e_j$小于0，则(16)式更新相当于将$v_{W_I}$输入上下文词向量第$j$个分量加上输出中心词$v′_{w_j}$词向量的第$j$个分量，使得二者接近。</p>
 <p>因此，上下文单词$w_I$（context word ）的输入向量的更新取决于词汇表中所有单词预测为中心词的误差$e$。预测误差越大，则该单词对于上下文单词的输入向量的更新过程影响越大。</p>
 <h4 id="Multi-word-context"><a href="#Multi-word-context" class="headerlink" title="Multi-word context"></a>Multi-word context</h4><p>基于multi-word context的CBOW模型利用多个上下文单词来预测中心单词，且不同上下文单词不考虑顺序。神经网络结构如图2所示：</p>
