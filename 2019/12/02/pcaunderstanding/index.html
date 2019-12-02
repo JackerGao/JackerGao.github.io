@@ -82,13 +82,13 @@
 <meta name="description" content="1.The derivation of the PCA1.1 主观理解​        PCA算法是一种特征降维方法，该方法是一种线性降维方法。加入有两个特征，一个是房价，一个房子面积，先对结果进行降维。     Samples X Y     a 10 10   b 2 2   c 1 1   d 7 7   e 3 3     首先进行减均值去中心化，得到：     Samples X Y">
 <meta name="keywords" content="dimension reduction">
 <meta property="og:type" content="article">
-<meta property="og:title" content="PCA理论推导和简单理解">
+<meta property="og:title" content="PCA通俗理解和理论推导">
 <meta property="og:url" content="https:&#x2F;&#x2F;jackergao.github.io&#x2F;2019&#x2F;12&#x2F;02&#x2F;pcaunderstanding&#x2F;index.html">
 <meta property="og:site_name" content="ML">
 <meta property="og:description" content="1.The derivation of the PCA1.1 主观理解​        PCA算法是一种特征降维方法，该方法是一种线性降维方法。加入有两个特征，一个是房价，一个房子面积，先对结果进行降维。     Samples X Y     a 10 10   b 2 2   c 1 1   d 7 7   e 3 3     首先进行减均值去中心化，得到：     Samples X Y">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https:&#x2F;&#x2F;jackergao.github.io&#x2F;2019&#x2F;12&#x2F;02&#x2F;pcaunderstanding&#x2F;Users&#x2F;shuli.gao&#x2F;AppData&#x2F;Roaming&#x2F;Typora&#x2F;typora-user-images&#x2F;1574674417224.png">
-<meta property="og:updated_time" content="2019-12-02T03:04:04.787Z">
+<meta property="og:updated_time" content="2019-12-02T03:08:09.111Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https:&#x2F;&#x2F;jackergao.github.io&#x2F;2019&#x2F;12&#x2F;02&#x2F;pcaunderstanding&#x2F;Users&#x2F;shuli.gao&#x2F;AppData&#x2F;Roaming&#x2F;Typora&#x2F;typora-user-images&#x2F;1574674417224.png">
 
@@ -126,7 +126,7 @@
 
 
 
-  <title>PCA理论推导和简单理解 | ML</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  <title>PCA通俗理解和理论推导 | ML</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
   
 
 
@@ -314,7 +314,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">PCA理论推导和简单理解</h1>
+          <h1 class="post-title" itemprop="name headline">PCA通俗理解和理论推导</h1>
         
 
         <div class="post-meta">
@@ -525,6 +525,7 @@ Cov(X,Y) = \frac{1}{n-1}\Sigma_{i=1}^n (X-\mu_{X})(Y-\mu_{Y})</script><p>​    
 </table>
 </div>
 <p>​        因为“主元2全都为0”，完全是多余的，只需要“主元1”就够了，这样就又把数据降维到1维，而且没有丢失任何信息。</p>
+<a id="more"></a>
 <h2 id="1-2-数学推导"><a href="#1-2-数学推导" class="headerlink" title="1.2 数学推导"></a>1.2 数学推导</h2><p>假设有一个两个样本，每个样本的特征空间为2，即:</p>
 <script type="math/tex; mode=display">
 \begin{pmatrix}
