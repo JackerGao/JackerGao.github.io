@@ -87,10 +87,10 @@
 <meta property="og:site_name" content="ML">
 <meta property="og:description" content="1.The derivation of the PCA1.1 主观理解​        PCA算法是一种特征降维方法，该方法是一种线性降维方法。加入有两个特征，一个是房价，一个房子面积，先对结果进行降维。     Samples X Y     a 10 10   b 2 2   c 1 1   d 7 7   e 3 3     首先进行减均值去中心化，得到：     Samples X Y">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https:&#x2F;&#x2F;jackergao.github.io&#x2F;2019&#x2F;12&#x2F;02&#x2F;pcaunderstanding&#x2F;Users&#x2F;shuli.gao&#x2F;AppData&#x2F;Roaming&#x2F;Typora&#x2F;typora-user-images&#x2F;1574674417224.png">
-<meta property="og:updated_time" content="2019-12-02T03:08:09.111Z">
+<meta property="og:image" content="https:&#x2F;&#x2F;jackergao.github.io&#x2F;images&#x2F;1574674417224.png">
+<meta property="og:updated_time" content="2019-12-02T03:14:47.971Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https:&#x2F;&#x2F;jackergao.github.io&#x2F;2019&#x2F;12&#x2F;02&#x2F;pcaunderstanding&#x2F;Users&#x2F;shuli.gao&#x2F;AppData&#x2F;Roaming&#x2F;Typora&#x2F;typora-user-images&#x2F;1574674417224.png">
+<meta name="twitter:image" content="https:&#x2F;&#x2F;jackergao.github.io&#x2F;images&#x2F;1574674417224.png">
 
 
 
@@ -484,7 +484,7 @@
 <script type="math/tex; mode=display">
 Var(X) = \frac{1}{n-1}\Sigma_{i=1}^n (X-\mu_{X})\\
 Cov(X,Y) = \frac{1}{n-1}\Sigma_{i=1}^n (X-\mu_{X})(Y-\mu_{Y})</script><p>​        PCA此时要做的工作就是对现有的特征进行线性降维，即在目前空间中找到一组基向量，然后将现有的特征映射到新的坐标空间中，同时保留特征的主要成分，删除次要成分，如：</p>
-<p><img src="/2019/12/02/pcaunderstanding/Users\shuli.gao\AppData\Roaming\Typora\typora-user-images\1574674417224.png" alt="1574674417224"></p>
+<p><img src="/images/1574674417224.png" alt="1574674417224"></p>
 <p>​        很显然$a$在“主元2”上的坐标为0，把所有的房间换算到新的坐标系上：</p>
 <div class="table-container">
 <table>
