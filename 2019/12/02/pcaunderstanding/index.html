@@ -88,7 +88,7 @@
 <meta property="og:description" content="1.The derivation of the PCA1.1 主观理解​        PCA算法是一种特征降维方法，该方法是一种线性降维方法。加入有两个特征，一个是房价，一个房子面积，先对结果进行降维。     Samples X Y     a 10 10   b 2 2   c 1 1   d 7 7   e 3 3     首先进行减均值去中心化，得到：     Samples X Y">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https:&#x2F;&#x2F;jackergao.github.io&#x2F;images&#x2F;1574674417224.png">
-<meta property="og:updated_time" content="2019-12-02T03:59:20.915Z">
+<meta property="og:updated_time" content="2019-12-02T05:37:46.462Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https:&#x2F;&#x2F;jackergao.github.io&#x2F;images&#x2F;1574674417224.png">
 
@@ -542,7 +542,7 @@ Cov(X,Y) = \frac{1}{n-1}\Sigma_{i=1}^n (X-\mu_{X})(Y-\mu_{Y})</script><p>​    
 <p>​        上式(3)中可改写为：</p>
 <script type="math/tex; mode=display">
 \begin{align}
-X_1^2+X_2^2 & = (x_1^2+x_2^2)e_{11}^2+2(x_1y_1+x_2y_2)e_{11}e_{12}+(y_1^2+y_2^2)e_{12}\\
+X_1^2+X_2^2 & = (x_1^2+x_2^2)e_{11}^2+2(x_1y_1+x_2y_2)e_{11}e_{12}+(y_1^2+y_2^2)e_{12} \nonumber\\
 &=e_1^TPe_1 \tag{4} 
 \end{align}</script><p>其中P：</p>
 <script type="math/tex; mode=display">
@@ -553,13 +553,13 @@ P=\begin{pmatrix}
 <p>由奇异值分解可知，式4可知：</p>
 <script type="math/tex; mode=display">
 \begin{align}
-X_1^2+X_2^2 &= e_1^TPe\\
-&=e_1^TU\Sigma U^Te\\
+X_1^2+X_2^2 &= e_1^TPe \nonumber\\
+&=e_1^TU\Sigma U^Te \nonumber\\
 &=n\Sigma n^T \tag{6}
 \end{align}</script><p>​         假设$\vec n=(n_1,n_2)$，则有：</p>
 <script type="math/tex; mode=display">
 \begin{align}
-X_1^2+X_2^2 &= n\Sigma n^T\\
+X_1^2+X_2^2 &= n\Sigma n^T \nonumber\\
 & = n_1^2\sigma_1+n_2^2\sigma_2 \tag{7}
 \end{align}</script><p>​         优化目标函数为：</p>
 <script type="math/tex; mode=display">
