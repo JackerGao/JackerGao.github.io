@@ -430,8 +430,7 @@
 
       
         
-          
-            <h1 id="LR-GBDT二分类和多分类梯度计算和更新过程"><a href="#LR-GBDT二分类和多分类梯度计算和更新过程" class="headerlink" title="LR+GBDT二分类和多分类梯度计算和更新过程"></a>LR+GBDT二分类和多分类梯度计算和更新过程</h1><h2 id="梯度推导"><a href="#梯度推导" class="headerlink" title="梯度推导"></a>梯度推导</h2><h3 id="SIGMOID-函数分类-LR-GBDT"><a href="#SIGMOID-函数分类-LR-GBDT" class="headerlink" title="SIGMOID 函数分类(LR+GBDT)"></a>SIGMOID 函数分类(LR+GBDT)</h3><p>sigmoid函数通常将结果映射到[0,1]之间，先推导通过后向传播求其梯度，假设非映射结果为（$F_m(x)$）：</p>
+          <h1 id="LR-GBDT二分类和多分类梯度计算和更新过程"><a href="#LR-GBDT二分类和多分类梯度计算和更新过程" class="headerlink" title="LR+GBDT二分类和多分类梯度计算和更新过程"></a>LR+GBDT二分类和多分类梯度计算和更新过程</h1><h2 id="梯度推导"><a href="#梯度推导" class="headerlink" title="梯度推导"></a>梯度推导</h2><h3 id="SIGMOID-函数分类-LR-GBDT"><a href="#SIGMOID-函数分类-LR-GBDT" class="headerlink" title="SIGMOID 函数分类(LR+GBDT)"></a>SIGMOID 函数分类(LR+GBDT)</h3><p>sigmoid函数通常将结果映射到[0,1]之间，先推导通过后向传播求其梯度，假设非映射结果为（$F_m(x)$）：</p>
 <script type="math/tex; mode=display">
 \begin {align}
 Sigmoid映射：h(x;\theta) &= \frac{1}{1+e^{-F_m(x)}} \tag{1} \\
@@ -446,67 +445,23 @@ Sigmoid映射：h(x;\theta) &= \frac{1}{1+e^{-F_m(x)}} \tag{1} \\
 <script type="math/tex; mode=display">
 \begin{align}
 g_t &= (h(x;\theta)-y_i)\frac{\partial F_m(x)}{\partial w_i} \nonumber\\
-& = (\hat y_i-y_i)x_i
+& = (\hat y_i-y_i)x_i \tag{4}
 \end{align}</script><p>LR采用梯度下降时，更新方法为：</p>
 <blockquote>
 <h1 id="LR更新方法-梯度下降法"><a href="#LR更新方法-梯度下降法" class="headerlink" title="LR更新方法-梯度下降法"></a>LR更新方法-梯度下降法</h1><p>第一步：初始化$[w_1,w_2,…,w_n]^T$;</p>
-<p>第二步：计算梯度Jacobian矩阵。$g_t =[g_1,g_2,…,g_i]^T= [(\hat y_1-y_1)x_i,(\hat y_2-y_2)x_2,…,(\hat y_i-y_i)x_i]$;</p>
+<p>第二步：计算梯度Jacobian矩阵。</p>
+<p>$g_t =[g_1,g_2,…,g_i]^T= [(\hat y_1-y_1)x_i,(\hat y_2-y_2)x_2,…,(\hat y_i-y_i)x_i]$;</p>
 <p>第三步：$[w_1,w_2,…,w_n]^T:=[w_1,w_2,…,w_n]^T-\alpha g_t$;</p>
 <p>第四步：$w^* = arg \min_wLoss $;</p>
 <p>第五步：算法结束</p>
 </blockquote>
-<p>和LR中用线性模型拟合有些不同，GBDT或者XGBOOST中采用回归树进行建模，即拟合函数$F_m(x)=w_{q(x)}$为回归树（Regression Tree），处理二分类问题时，可计算其梯度：</p>
-<script type="math/tex; mode=display">
-\begin{align}
-Loss函数为交叉熵：H(p,q) &=-\sum_{j=1}^n \sum_{i=1}^mp_ilogq_i \nonumber \\
-& = \sum_{j=1}^n c_0log (1+e^{-F_m(x)})+(1-c_0)(F_m(x)+log(1+e^{-F_m(x)})) \tag{4} \\
-梯度求解：&\partial Loss(y,\hat y)|_{\hat y = F_m(x)} = -c_0+\frac{1}{1+e^{-F_m(x)}} = \hat y - y_i \tag{5}
-\end{align}</script><p>GBDT具有自己的特点：1）梯度提升（每棵树都是前m-1棵树的负梯度方向）；2）加性模型（预测结果为m棵树的累加）。</p>
-<script type="math/tex; mode=display">
-\begin{align}
-&一般损失：L(y,\hat y) = L(y_i,F_{m-1}(x_i)+f_m(x_i)) \tag{6} \\
-&泰勒展开：L(y,\hat y) = L(y_i,F_{m-1}(x_i))+f_m(x_i)L^\prime(y_i,F_{m-1}(x_i))|_{F_{m-1}(x_i)} \tag{7}\\
-&新树：f_m(x_i) = -\alpha  L^\prime(y_i,F_{m-1}(x_i))|_{F_{m-1}(x_i)} \tag{8}
-\end{align}</script><p>GBDT采用梯度下降法进行更新步骤：</p>
-<blockquote>
-<h1 id="GBDT更新方法-梯度下降法"><a href="#GBDT更新方法-梯度下降法" class="headerlink" title="GBDT更新方法-梯度下降法"></a>GBDT更新方法-梯度下降法</h1><p>第一步：初始化第一棵树$f_0=log\frac{p_1}{1-p_1}$,其中$p_1$是训练样本中y=1的比例，利用先验知识初始化。</p>
-<p>第二步：计算梯度。$g_i = \hat y - y$,并使用训练集$\{(x_i,-g_i)\}^n_{i=1}$训练一棵树$f_m(x)$，其中$\hat y = \frac{1}{1+e^{F_{m-1}(x)}}$</p>
-<p>第三步：通过line search方法找到每棵树的最佳权重（Shrinkage）：$\gamma_m =arg min_{\gamma_m}L(y_i,F_{m-1}(x)+\gamma_mf_m(x)) $</p>
-<p>第四步：累加所有树，得到模型：$F_m(x) = \sum_{i=0}^m \alpha \gamma_mf_m(x)$</p>
-</blockquote>
-<h3 id="SOFTMAX分类问题-LR-GBDT"><a href="#SOFTMAX分类问题-LR-GBDT" class="headerlink" title="SOFTMAX分类问题(LR+GBDT)"></a>SOFTMAX分类问题(LR+GBDT)</h3><p>处理多分类的时候，一般会选用SOFTMAX函数作为映射函数：</p>
-<script type="math/tex; mode=display">
-SoftMax映射：q_j = \frac{e^{F^j_m(x_i)}}{\sum_{j^\prime =1}^m e^{F^{j^\prime}_m(x_i)}} \tag{9}</script><p>多分类的输出是One-hot，也就说，只有一个为标签为1，分类问题交叉熵作为损失函数，则有：</p>
-<script type="math/tex; mode=display">
-\begin{align}
-&一个样本：Loss(y_i,\hat y) = -\sum_{j=1}^m y_jlogq_j \tag{10}\\
-&只有一个标签为1,其余均为0：Loss(y_i,\hat y) = -log \frac{e^{F^j_m(x_i)}}{\sum_{j^\prime =1}^m e^{F^{j^\prime}_m(x_i)}} \tag{11}\\
-求多分类梯度：&if \quad j = i \to \partial L(y_i,\hat y)|_{\hat y =F_m(x)} =  (q_j-1)\nonumber\\
-&if \quad j\ne i \to \partial L(y_i,\hat y)|_{\hat y =F_m(x)} = q_j \nonumber\\
-&总结多分类梯度更新方式为：g_t|_{F_m(x)} = \hat y_i - y_i 
-\end{align}</script><p>先举例说明计算时梯度如何计算，不管是LR还是GBDT:</p>
-<blockquote>
-<h1 id="举例说明如何更新梯度（对-F-m-x-的梯度）"><a href="#举例说明如何更新梯度（对-F-m-x-的梯度）" class="headerlink" title="举例说明如何更新梯度（对$F_m(x)$的梯度）"></a>举例说明如何更新梯度（对$F_m(x)$的梯度）</h1><p>第一步：获取得分$F^j_m(x)$，比如三分类输出$[2,1,0.3]^T$</p>
-<p>第二步：计算预测结果，即SoftMax输出结果$[0.64,0.23,0.13]$</p>
-<p>第三步：计算梯度。假设第二类为正确预测的结果，由上面梯度计算结果可知：</p>
-<p>$[0.64,0.23-1,0.13] = [0.64,-0.77,0.13] $</p>
-<p>梯度计算完毕</p>
-</blockquote>
-<p>先给出LR-MULTICLASSIFIER迭代过程：</p>
-<blockquote>
-<h1 id="LR-MultiClassifer-StochasticGradient"><a href="#LR-MultiClassifer-StochasticGradient" class="headerlink" title="LR-MultiClassifer-StochasticGradient"></a>LR-MultiClassifer-StochasticGradient</h1><p>第一步：初始化线性拟合部分模型参数$[w_1,w_2,w_3,…,w_n]$</p>
-<p>第二步：计算梯度,Jacobian矩阵。计算$g_t=(\hat y_j -y_j)x_i=[g_1,g_2,…,g_j]$，输入$\{(x_i,y_i,-g_t)\}$，其中$j$为输出的维度（分类的类别数）且$\hat y_j = softmax_j$ </p>
-<p>第三步：更新参数。$[w_1,w_2,…,w_n]^T:=[w_1,w_2,…,w_n]^T-\alpha g_t$;</p>
-<p>第四步：达到最优。$w^* = argmin_w L(y_i,\hat y)$</p>
-<p>结束算法。</p>
-</blockquote>
-<p>GBDT的算法迭代方式和二分类非常的类似，这里就不在累述。</p>
-<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>不管是LR还是树模型，计算梯度都可使用后向传输（链式求导）的方法求其梯度。并且不管是二分类还是多分类，其损失函数对$F_m(x)$（拟合输出得分，对于LR就是线性拟合结果，对于树模型就是叶子节点的得分），都是$g_t = \hat y - y$。但是应该注意的是，GBDT在更新的过程中，是对$F_{m-1}(x)$的导数，这个应该注意。</p>
-<p>参考文献</p>
-<p>[1]  Jerome H. Friedman. Greedy Function Approximation: A Gradient Boosting Machine[J]. Annals of Statistics, 29(5):1189-1232.</p>
-<p>[2]  Sigmoid and SoftMax作为映射函数推导:<a href="http://willwolf.io/2017/05/18/minimizing_the_negative_log_likelihood_in_english/" target="_blank" rel="noopener">http://willwolf.io/2017/05/18/minimizing_the_negative_log_likelihood_in_english/</a></p>
-
-          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/12/25/sigmoidandsoftmaxgradient/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
