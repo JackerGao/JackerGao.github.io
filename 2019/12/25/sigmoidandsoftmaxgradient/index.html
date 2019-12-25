@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="LR和GBDT模型更新方法," />
 
 
 
@@ -79,13 +79,15 @@
 
 
 
-<meta name="description" content="行胜于言">
-<meta property="og:type" content="website">
-<meta property="og:title" content="ML">
-<meta property="og:url" content="https:&#x2F;&#x2F;jackergao.github.io&#x2F;archives&#x2F;index.html">
+<meta name="description" content="LR+GBDT二分类和多分类梯度计算和更新过程梯度推导SIGMOID 函数分类(LR+GBDT)sigmoid函数通常将结果映射到[0,1]之间，先推导通过后向传播求其梯度，假设非映射结果为（$F_m(x)$）：  \begin {align} Sigmoid映射：h(x;\theta) &amp;= \frac{1}{1+e^{-F_m(x)}} \tag{1} \\ 损失函数：Loss(y,\hat">
+<meta name="keywords" content="LR和GBDT模型更新方法">
+<meta property="og:type" content="article">
+<meta property="og:title" content="LR和GBDT在处理多分类问题时的梯度推导和算法更新过程">
+<meta property="og:url" content="https:&#x2F;&#x2F;jackergao.github.io&#x2F;2019&#x2F;12&#x2F;25&#x2F;sigmoidandsoftmaxgradient&#x2F;index.html">
 <meta property="og:site_name" content="ML">
-<meta property="og:description" content="行胜于言">
+<meta property="og:description" content="LR+GBDT二分类和多分类梯度计算和更新过程梯度推导SIGMOID 函数分类(LR+GBDT)sigmoid函数通常将结果映射到[0,1]之间，先推导通过后向传播求其梯度，假设非映射结果为（$F_m(x)$）：  \begin {align} Sigmoid映射：h(x;\theta) &amp;= \frac{1}{1+e^{-F_m(x)}} \tag{1} \\ 损失函数：Loss(y,\hat">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-12-25T07:32:20.232Z">
 <meta name="twitter:card" content="summary">
 
 
@@ -116,13 +118,13 @@
 
 
 
-  <link rel="canonical" href="https://jackergao.github.io/archives/"/>
+  <link rel="canonical" href="https://jackergao.github.io/2019/12/25/sigmoidandsoftmaxgradient/"/>
 
 
 
 
 
-  <title>归档 | ML</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  <title>LR和GBDT在处理多分类问题时的梯度推导和算法更新过程 | ML</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
   
 
 
@@ -141,7 +143,7 @@
     
   
 
-  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-archive">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -279,148 +281,291 @@
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block archive">
-    <div id="posts" class="posts-collapse">
-      <span class="archive-move-on"></span>
+  <div id="posts" class="posts-expand">
+    
 
-      <span class="archive-page-counter">
+  
+
+  
+  
+  
+
+  <article class="post post-type-tags" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://jackergao.github.io/2019/12/25/sigmoidandsoftmaxgradient/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Ali">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatara.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ML">
+    </span>
+
+    
+      <header class="post-header">
+
         
         
+          <h1 class="post-title" itemprop="name headline">LR和GBDT在处理多分类问题时的梯度推导和算法更新过程</h1>
         
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-12-25T15:18:40+08:00">
+                2019-12-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
           
-        
-        嗯..! 目前共计 3 篇日志。 继续努力。
-      </span>
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/cross-entropy/" itemprop="url" rel="index">
+                    <span itemprop="name">Cross-Entropy</span>
+                  </a>
+                </span>
 
-      
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/cross-entropy/lr/" itemprop="url" rel="index">
+                    <span itemprop="name">LR</span>
+                  </a>
+                </span>
 
-        
-        
-        
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/cross-entropy/lr/gbdt/" itemprop="url" rel="index">
+                    <span itemprop="name">GBDT</span>
+                  </a>
+                </span>
 
-        
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/cross-entropy/lr/gbdt/sigmoid/" itemprop="url" rel="index">
+                    <span itemprop="name">Sigmoid</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/cross-entropy/lr/gbdt/sigmoid/softmax/" itemprop="url" rel="index">
+                    <span itemprop="name">SoftMax</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
-          <div class="collection-title">
-            <h1 class="archive-year" id="archive-year-2019">2019</h1>
-          </div>
-        
-        
 
-        
+          
+            
+          
 
-  <article class="post post-type-tags" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+          
+          
 
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2019/12/25/sigmoidandsoftmaxgradient/" itemprop="url">
-              
-                <span itemprop="name">LR和GBDT在处理多分类问题时的梯度推导和算法更新过程</span>
-              
-            </a>
-        
-      </h2>
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv">本文总阅读量 <i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>次
+            </span>
+          
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2019-12-25T15:18:40+08:00"
-              content="2019-12-25" >
-          12-25
-        </time>
-      </div>
+          
 
-    </header>
-  </article>
+          
 
+        </div>
+      </header>
+    
 
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-tags" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2019/12/02/pcaunderstanding/" itemprop="url">
-              
-                <span itemprop="name">PCA通俗理解和理论推导</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2019-12-02T10:36:59+08:00"
-              content="2019-12-02" >
-          12-02
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
       
 
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-tags" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2019/11/26/GraphEnbedding/" itemprop="url">
-              
-                <span itemprop="name">Word2Vec Paper Understanding</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2019-11-26T15:53:46+08:00"
-              content="2019-11-26" >
-          11-26
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
+      
+        <h1 id="LR-GBDT二分类和多分类梯度计算和更新过程"><a href="#LR-GBDT二分类和多分类梯度计算和更新过程" class="headerlink" title="LR+GBDT二分类和多分类梯度计算和更新过程"></a>LR+GBDT二分类和多分类梯度计算和更新过程</h1><h2 id="梯度推导"><a href="#梯度推导" class="headerlink" title="梯度推导"></a>梯度推导</h2><h3 id="SIGMOID-函数分类-LR-GBDT"><a href="#SIGMOID-函数分类-LR-GBDT" class="headerlink" title="SIGMOID 函数分类(LR+GBDT)"></a>SIGMOID 函数分类(LR+GBDT)</h3><p>sigmoid函数通常将结果映射到[0,1]之间，先推导通过后向传播求其梯度，假设非映射结果为（$F_m(x)$）：</p>
+<script type="math/tex; mode=display">
+\begin {align}
+Sigmoid映射：h(x;\theta) &= \frac{1}{1+e^{-F_m(x)}} \tag{1} \\
+损失函数：Loss(y,\hat y) &= -\sum_{i=0}^1y_ilog\hat y_i \nonumber\\
+&=-[y_ilog h_i+(1-y_i)log(1-h_i)]\tag{2} \\
+\end {align}</script><p>应该注意的是$\hat y$是预测结果，并且$\hat y = h(x;\theta)$，交叉熵作为损失函数是为了评估实际值（标签）$y_i$与预测值的相似程度。先求其梯度，且暂时不考虑使用什么函数拟合。</p>
+<script type="math/tex; mode=display">
+\begin{align}
+一般形式（拟合函数F_m(x)）：g_t &= \frac{\partial Loss(y,\hat y)}{\partial F_m(x)} \nonumber \\
+&=(h(x;\theta)-y_i) \tag{3}
+\end{align}</script><p>求一阶导数的时候不需要一下把所有的的函数都代入，这样会比较复杂，链式求导一般会较少计算错误率。上式若拟合函数是多元线性组合形式，则为LR的梯度求导过程，只需要代入$F_m(x) = w^Tx$:</p>
+<script type="math/tex; mode=display">
+\begin{align}
+g_t &= (h(x;\theta)-y_i)\frac{\partial F_m(x)}{\partial w_i} \nonumber\\
+& = (\hat y_i-y_i)x_i
+\end{align}</script><p>LR采用梯度下降时，更新方法为：</p>
+<blockquote>
+<h1 id="LR更新方法-梯度下降法"><a href="#LR更新方法-梯度下降法" class="headerlink" title="LR更新方法-梯度下降法"></a>LR更新方法-梯度下降法</h1><p>第一步：初始化$[w_1,w_2,…,w_n]^T$;</p>
+<p>第二步：计算梯度Jacobian矩阵。$g_t =[g_1,g_2,…,g_i]^T= [(\hat y_1-y_1)x_i,(\hat y_2-y_2)x_2,…,(\hat y_i-y_i)x_i]$;</p>
+<p>第三步：$[w_1,w_2,…,w_n]^T:=[w_1,w_2,…,w_n]^T-\alpha g_t$;</p>
+<p>第四步：$w^* = arg \min_wLoss $;</p>
+<p>第五步：算法结束</p>
+</blockquote>
+<p>和LR中用线性模型拟合有些不同，GBDT或者XGBOOST中采用回归树进行建模，即拟合函数$F_m(x)=w_{q(x)}$为回归树（Regression Tree），处理二分类问题时，可计算其梯度：</p>
+<script type="math/tex; mode=display">
+\begin{align}
+Loss函数为交叉熵：H(p,q) &=-\sum_{j=1}^n \sum_{i=1}^mp_ilogq_i \nonumber \\
+& = \sum_{j=1}^n c_0log (1+e^{-F_m(x)})+(1-c_0)(F_m(x)+log(1+e^{-F_m(x)})) \tag{4} \\
+梯度求解：&\partial Loss(y,\hat y)|_{\hat y = F_m(x)} = -c_0+\frac{1}{1+e^{-F_m(x)}} = \hat y - y_i \tag{5}
+\end{align}</script><p>GBDT具有自己的特点：1）梯度提升（每棵树都是前m-1棵树的负梯度方向）；2）加性模型（预测结果为m棵树的累加）。</p>
+<script type="math/tex; mode=display">
+\begin{align}
+&一般损失：L(y,\hat y) = L(y_i,F_{m-1}(x_i)+f_m(x_i)) \tag{6} \\
+&泰勒展开：L(y,\hat y) = L(y_i,F_{m-1}(x_i))+f_m(x_i)L^\prime(y_i,F_{m-1}(x_i))|_{F_{m-1}(x_i)} \tag{7}\\
+&新树：f_m(x_i) = -\alpha  L^\prime(y_i,F_{m-1}(x_i))|_{F_{m-1}(x_i)} \tag{8}
+\end{align}</script><p>GBDT采用梯度下降法进行更新步骤：</p>
+<blockquote>
+<h1 id="GBDT更新方法-梯度下降法"><a href="#GBDT更新方法-梯度下降法" class="headerlink" title="GBDT更新方法-梯度下降法"></a>GBDT更新方法-梯度下降法</h1><p>第一步：初始化第一棵树$f_0=log\frac{p_1}{1-p_1}$,其中$p_1$是训练样本中y=1的比例，利用先验知识初始化。</p>
+<p>第二步：计算梯度。$g_i = \hat y - y$,并使用训练集$\{(x_i,-g_i)\}^n_{i=1}$训练一棵树$f_m(x)$，其中$\hat y = \frac{1}{1+e^{F_{m-1}(x)}}$</p>
+<p>第三步：通过line search方法找到每棵树的最佳权重（Shrinkage）：$\gamma_m =arg min_{\gamma_m}L(y_i,F_{m-1}(x)+\gamma_mf_m(x)) $</p>
+<p>第四步：累加所有树，得到模型：$F_m(x) = \sum_{i=0}^m \alpha \gamma_mf_m(x)$</p>
+</blockquote>
+<h3 id="SOFTMAX分类问题-LR-GBDT"><a href="#SOFTMAX分类问题-LR-GBDT" class="headerlink" title="SOFTMAX分类问题(LR+GBDT)"></a>SOFTMAX分类问题(LR+GBDT)</h3><p>处理多分类的时候，一般会选用SOFTMAX函数作为映射函数：</p>
+<script type="math/tex; mode=display">
+SoftMax映射：q_j = \frac{e^{F^j_m(x_i)}}{\sum_{j^\prime =1}^m e^{F^{j^\prime}_m(x_i)}} \tag{9}</script><p>多分类的输出是One-hot，也就说，只有一个为标签为1，分类问题交叉熵作为损失函数，则有：</p>
+<script type="math/tex; mode=display">
+\begin{align}
+&一个样本：Loss(y_i,\hat y) = -\sum_{j=1}^m y_jlogq_j \tag{10}\\
+&只有一个标签为1,其余均为0：Loss(y_i,\hat y) = -log \frac{e^{F^j_m(x_i)}}{\sum_{j^\prime =1}^m e^{F^{j^\prime}_m(x_i)}} \tag{11}\\
+求多分类梯度：&if \quad j = i \to \partial L(y_i,\hat y)|_{\hat y =F_m(x)} =  (q_j-1)\nonumber\\
+&if \quad j\ne i \to \partial L(y_i,\hat y)|_{\hat y =F_m(x)} = q_j \nonumber\\
+&总结多分类梯度更新方式为：g_t|_{F_m(x)} = \hat y_i - y_i 
+\end{align}</script><p>先举例说明计算时梯度如何计算，不管是LR还是GBDT:</p>
+<blockquote>
+<h1 id="举例说明如何更新梯度（对-F-m-x-的梯度）"><a href="#举例说明如何更新梯度（对-F-m-x-的梯度）" class="headerlink" title="举例说明如何更新梯度（对$F_m(x)$的梯度）"></a>举例说明如何更新梯度（对$F_m(x)$的梯度）</h1><p>第一步：获取得分$F^j_m(x)$，比如三分类输出$[2,1,0.3]^T$</p>
+<p>第二步：计算预测结果，即SoftMax输出结果$[0.64,0.23,0.13]$</p>
+<p>第三步：计算梯度。假设第二类为正确预测的结果，由上面梯度计算结果可知：</p>
+<p>$[0.64,0.23-1,0.13] = [0.64,-0.77,0.13] $</p>
+<p>梯度计算完毕</p>
+</blockquote>
+<p>先给出LR-MULTICLASSIFIER迭代过程：</p>
+<blockquote>
+<h1 id="LR-MultiClassifer-StochasticGradient"><a href="#LR-MultiClassifer-StochasticGradient" class="headerlink" title="LR-MultiClassifer-StochasticGradient"></a>LR-MultiClassifer-StochasticGradient</h1><p>第一步：初始化线性拟合部分模型参数$[w_1,w_2,w_3,…,w_n]$</p>
+<p>第二步：计算梯度,Jacobian矩阵。计算$g_t=(\hat y_j -y_j)x_i=[g_1,g_2,…,g_j]$，输入$\{(x_i,y_i,-g_t)\}$，其中$j$为输出的维度（分类的类别数）且$\hat y_j = softmax_j$ </p>
+<p>第三步：更新参数。$[w_1,w_2,…,w_n]^T:=[w_1,w_2,…,w_n]^T-\alpha g_t$;</p>
+<p>第四步：达到最优。$w^* = argmin_w L(y_i,\hat y)$</p>
+<p>结束算法。</p>
+</blockquote>
+<p>GBDT的算法迭代方式和二分类非常的类似，这里就不在累述。</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>不管是LR还是树模型，计算梯度都可使用后向传输（链式求导）的方法求其梯度。并且不管是二分类还是多分类，其损失函数对$F_m(x)$（拟合输出得分，对于LR就是线性拟合结果，对于树模型就是叶子节点的得分），都是$g_t = \hat y - y$。但是应该注意的是，GBDT在更新的过程中，是对$F_{m-1}(x)$的导数，这个应该注意。</p>
+<p>参考文献</p>
+<p>[1]  Jerome H. Friedman. Greedy Function Approximation: A Gradient Boosting Machine[J]. Annals of Statistics, 29(5):1189-1232.</p>
+<p>[2]  Sigmoid and SoftMax作为映射函数推导:<a href="http://willwolf.io/2017/05/18/minimizing_the_negative_log_likelihood_in_english/" target="_blank" rel="noopener">http://willwolf.io/2017/05/18/minimizing_the_negative_log_likelihood_in_english/</a></p>
 
       
-
     </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/lr%E5%92%8Cgbdt%E6%A8%A1%E5%9E%8B%E6%9B%B4%E6%96%B0%E6%96%B9%E6%B3%95/" rel="tag"># LR和GBDT模型更新方法</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/12/02/pcaunderstanding/" rel="next" title="PCA通俗理解和理论推导">
+                <i class="fa fa-chevron-left"></i> PCA通俗理解和理论推导
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
 
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -428,6 +573,15 @@
 
 
           
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8zMzYwNi8xMDE2MQ=="></div>
+    </div>
+
+  
+
+
 
         </div>
         
@@ -448,8 +602,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -529,6 +692,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#LR-GBDT二分类和多分类梯度计算和更新过程"><span class="nav-number">1.</span> <span class="nav-text">LR+GBDT二分类和多分类梯度计算和更新过程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#梯度推导"><span class="nav-number">1.1.</span> <span class="nav-text">梯度推导</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#SIGMOID-函数分类-LR-GBDT"><span class="nav-number">1.1.1.</span> <span class="nav-text">SIGMOID 函数分类(LR+GBDT)</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#LR更新方法-梯度下降法"><span class="nav-number">2.</span> <span class="nav-text">LR更新方法-梯度下降法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#GBDT更新方法-梯度下降法"><span class="nav-number">3.</span> <span class="nav-text">GBDT更新方法-梯度下降法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#SOFTMAX分类问题-LR-GBDT"><span class="nav-number">3.0.1.</span> <span class="nav-text">SOFTMAX分类问题(LR+GBDT)</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#举例说明如何更新梯度（对-F-m-x-的梯度）"><span class="nav-number">4.</span> <span class="nav-text">举例说明如何更新梯度（对$F_m(x)$的梯度）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#LR-MultiClassifer-StochasticGradient"><span class="nav-number">5.</span> <span class="nav-text">LR-MultiClassifer-StochasticGradient</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">5.0.1.</span> <span class="nav-text">总结</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -702,6 +881,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
@@ -730,6 +913,17 @@
 
 
 
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
   
 
 
