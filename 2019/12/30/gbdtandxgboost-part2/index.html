@@ -79,19 +79,19 @@
 
 
 
-<meta name="description" content="注：上接GBDT和XGBOOST算法推导和流程详解(PART-2) XGBOOST算法原理及相应流程XGBOOST相比GBDT有以下有点和改进: 1）分布式-特征切分 2）稀疏感知-缺失值直接当做特征处理 3）加权分位点进行-树构建节点分割 4）泰勒二阶导数-Newtons Methods更新方法 5）防止过拟合的方法-正则+shrinkage+subsampling 6）系统设计上更加优化 基本">
+<meta name="description" content="注：上接GBDT和XGBOOST算法推导和流程详解(PART-1) XGBOOST算法原理及相应流程XGBOOST相比GBDT有以下有点和改进: 1）分布式-特征切分 2）稀疏感知-缺失值直接当做特征处理 3）加权分位点进行-树构建节点分割 4）泰勒二阶导数-Newtons Methods更新方法 5）防止过拟合的方法-正则+shrinkage+subsampling 6）系统设计上更加优化 基本">
 <meta name="keywords" content="GBDT and XGBOOST">
 <meta property="og:type" content="article">
 <meta property="og:title" content="GBDT和XGBOOST算法推导和流程详解(PART-2)">
 <meta property="og:url" content="https:&#x2F;&#x2F;jackergao.github.io&#x2F;2019&#x2F;12&#x2F;30&#x2F;gbdtandxgboost-part2&#x2F;index.html">
 <meta property="og:site_name" content="ML">
-<meta property="og:description" content="注：上接GBDT和XGBOOST算法推导和流程详解(PART-2) XGBOOST算法原理及相应流程XGBOOST相比GBDT有以下有点和改进: 1）分布式-特征切分 2）稀疏感知-缺失值直接当做特征处理 3）加权分位点进行-树构建节点分割 4）泰勒二阶导数-Newtons Methods更新方法 5）防止过拟合的方法-正则+shrinkage+subsampling 6）系统设计上更加优化 基本">
+<meta property="og:description" content="注：上接GBDT和XGBOOST算法推导和流程详解(PART-1) XGBOOST算法原理及相应流程XGBOOST相比GBDT有以下有点和改进: 1）分布式-特征切分 2）稀疏感知-缺失值直接当做特征处理 3）加权分位点进行-树构建节点分割 4）泰勒二阶导数-Newtons Methods更新方法 5）防止过拟合的方法-正则+shrinkage+subsampling 6）系统设计上更加优化 基本">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https:&#x2F;&#x2F;jackergao.github.io&#x2F;images&#x2F;1577714396440.png">
-<meta property="og:image" content="https:&#x2F;&#x2F;jackergao.github.io&#x2F;2019&#x2F;12&#x2F;30&#x2F;gbdtandxgboost-part2&#x2F;images&#x2F;正负样本权重比3仿真结果.png">
-<meta property="og:image" content="https:&#x2F;&#x2F;jackergao.github.io&#x2F;2019&#x2F;12&#x2F;30&#x2F;gbdtandxgboost-part2&#x2F;images&#x2F;1576062894361.png">
-<meta property="og:image" content="https:&#x2F;&#x2F;jackergao.github.io&#x2F;2019&#x2F;12&#x2F;30&#x2F;gbdtandxgboost-part2&#x2F;images&#x2F;正负样本得分权重比为1.png">
-<meta property="og:updated_time" content="2019-12-30T14:04:06.711Z">
+<meta property="og:image" content="https:&#x2F;&#x2F;jackergao.github.io&#x2F;images&#x2F;正负样本权重比3仿真结果.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;jackergao.github.io&#x2F;images&#x2F;1576062894361.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;jackergao.github.io&#x2F;images&#x2F;正负样本得分权重比为1.png">
+<meta property="og:updated_time" content="2019-12-30T14:11:02.842Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https:&#x2F;&#x2F;jackergao.github.io&#x2F;images&#x2F;1577714396440.png">
 
@@ -416,7 +416,7 @@
       
 
       
-        <p><strong>注：上接GBDT和XGBOOST算法推导和流程详解(PART-2)</strong></p>
+        <p><strong>注：上接GBDT和XGBOOST算法推导和流程详解(PART-1)</strong></p>
 <h3 id="XGBOOST算法原理及相应流程"><a href="#XGBOOST算法原理及相应流程" class="headerlink" title="XGBOOST算法原理及相应流程"></a>XGBOOST算法原理及相应流程</h3><p>XGBOOST相比GBDT有以下有点和改进:</p>
 <p>1）分布式-特征切分</p>
 <p>2）稀疏感知-缺失值直接当做特征处理</p>
@@ -455,17 +455,17 @@ Loss(y_i,\hat y) &= \sum_{j=1}^T (G_j w_j + \frac{1}{2}H_j w_j^2)+\gamma T+\frac
 <script type="math/tex; mode=display">
 \begin{align}
 &\frac{\partial Loss(y_i,\hat y)}{\partial w_j} = G_j+(H_j+\lambda)w_j = 0 \nonumber \\
-&\to w_j = -\frac{G_j}{H_j+\lambda} 
+&\to w_j = -\frac{G_j}{H_j+\lambda} \tag{26}
 \end{align}</script><p>先求出了最优叶子权重，可知最优的Loss函数为：</p>
 <script type="math/tex; mode=display">
 \begin{align}
-将w_j代入Loss中：Loss = -\frac{1}{2}\sum_{j=1}^T\frac{G_j^2}{H_j+\lambda}+\gamma T+C \tag{26}
+将w_j代入Loss中：Loss = -\frac{1}{2}\sum_{j=1}^T\frac{G_j^2}{H_j+\lambda}+\gamma T+C \tag{27}
 \end{align}</script><p>26式用来判断一棵树的好坏，越小，代表树的结果越好。既然这样的话，能不能想熵函数，GINI指数一样作为节点分裂函数呢？答案是肯定的，不同于GBDT节点分裂函数（MSE），XGBOOST定义了自己的分裂函数（思想和熵函数GINI一样）,可以从单个节点迭代地增加分支：</p>
 <script type="math/tex; mode=display">
 \begin{align}
 &(不分loss-(左分loss+右分loss))：\nonumber \\
 SpliterFunction  &= \frac{1}{2}\frac{G_{jL}^2}{H_{jL}+\lambda}+\frac{1}{2}\frac{G_{jR}^2}{H_{jR}+\lambda}-2\gamma -  \frac{1}{2}\frac{G_{j}^2}{H_{j}+\lambda}+\gamma \cdot1 \nonumber \\
-&=\frac{1}{2}\frac{G_{jL}^2}{H_{jL}+\lambda}+\frac{1}{2}\frac{G_{jR}^2}{H_{jR}+\lambda} -  \frac{1}{2}\frac{G_{j}^2}{H_{j}+\lambda} -\gamma \tag{27}
+&=\frac{1}{2}\frac{G_{jL}^2}{H_{jL}+\lambda}+\frac{1}{2}\frac{G_{jR}^2}{H_{jR}+\lambda} -  \frac{1}{2}\frac{G_{j}^2}{H_{j}+\lambda} -\gamma \tag{28}
 \end{align}</script><p><strong>总是从单个节点逐步地分割成两个分支，未分前T=1,分割后，T=2。</strong></p>
 <h4 id="节点分裂策略"><a href="#节点分裂策略" class="headerlink" title="节点分裂策略"></a>节点分裂策略</h4><p>上面已经将第一步的理论部分进行了推导，得到了最优树权重，评判树结构好坏的Loss函数和分裂标签函数。如果不考虑计算量问题，可以通过枚举的方法建立可能树的全集，但是这在实际中显然是不现实的。三种可选的分割节点的方法：</p>
 <blockquote>
@@ -483,12 +483,12 @@ SpliterFunction  &= \frac{1}{2}\frac{G_{jL}^2}{H_{jL}+\lambda}+\frac{1}{2}\frac{
 <p>不同于一般的分位点作为候选点的方法，加权分位点使用二阶导数对数据排序。之所以可以用二阶导数作为排序的标准，是因为：</p>
 <script type="math/tex; mode=display">
 \begin{align}
-Loss(y_i,\hat y_i) = \frac{1}{2}\sum_{i=1}^nh_i(f_t(x_i)-\frac{g_i}{h_i})^2+\Omega(f(x_i))+constant \tag{28}
+Loss(y_i,\hat y_i) = \frac{1}{2}\sum_{i=1}^nh_i(f_t(x_i)-\frac{g_i}{h_i})^2+\Omega(f(x_i))+constant \tag{29}
 \end{align}</script><p>加权分位点可以处理权重不同的数据，而传统的分位点方法虽然可以处理但是没有理论保证，但是加权分位点却有完整的理论证明和保证。</p>
 <p>定义加权分位点的rank排序函数$r_{sk}$(k表示第k个特征)：</p>
 <script type="math/tex; mode=display">
 \begin{align}
-r_{sk}(z) = \frac{1}{\sum_{x_i\in D_k} h_i} \sum_{x_i\le z}h_i
+r_{sk}(z) = \frac{1}{\sum_{x_i\in D_k} h_i} \sum_{x_i\le z}h_i \tag{30}
 \end{align}</script><p> 通过对二阶导数进行排序同样可以达到排序的目的，那么进行为什么还要定义排序函数呢，我理解原因之一是和非加权分位点一样，在有加权($h_i$)的情况下，达到样本有权重“均衡”地分配的目的。</p>
 <p> <strong>稀疏感知</strong></p>
 <p>XGBOOST对于缺失值可以不做处理，直接进行训练，也可以理解成XGBOOST算法将缺失值作为数据点，输入到模型训练中，然后找到缺失值最好的分裂点。但是这样做有疑问的地方：</p>
@@ -496,7 +496,8 @@ r_{sk}(z) = \frac{1}{\sum_{x_i\in D_k} h_i} \sum_{x_i\le z}h_i
 <p>2）”Github上XGBOOST作者说，分到左边或者右边，依据是训练时损失函数的降低程度“，但是如果值都missing了，到底怎么计算呢？</p>
 <p>论文给出的稀疏感知的算法过程没有详细的计算过程：</p>
 <blockquote>
-<h1 id="稀疏感知分裂算法流程"><a href="#稀疏感知分裂算法流程" class="headerlink" title="稀疏感知分裂算法流程"></a>稀疏感知分裂算法流程</h1><p>将数据按照未缺失值进行递增排序</p>
+<p>//#稀疏感知分裂算法流程</p>
+<p>将数据按照未缺失值进行递增排序</p>
 <p>利用分割函数对未缺失值进行分割并统一将缺失样本分到右边</p>
 <p>找到最佳分割点</p>
 <p>将数据按照未缺失值进行递减排序</p>
@@ -506,7 +507,8 @@ r_{sk}(z) = \frac{1}{\sum_{x_i\in D_k} h_i} \sum_{x_i\le z}h_i
 </blockquote>
 <p>那么就遇到上面的问题，我不知道缺失值是多少，我怎么计算放哪边更好，或者说怎么算放哪边损失降级的更大。根据[4]所述，结合我的理解，它应该是这样处理的:</p>
 <blockquote>
-<h1 id="我理解的XGBOOST处理缺失值的方法"><a href="#我理解的XGBOOST处理缺失值的方法" class="headerlink" title="我理解的XGBOOST处理缺失值的方法"></a>我理解的XGBOOST处理缺失值的方法</h1><blockquote>
+<p>//#我理解的XGBOOST处理缺失值的方法</p>
+<blockquote>
 <p>回归问题：假设损失函数是MSE</p>
 <p>1）按照未缺失值遍历，按照分裂函数给出分裂结果，同时将缺失值放到右边（缺失值虽然特征缺失，但是label肯定是有的），将缺失值的label与未缺失值计算结果进行计算(MSE(w_i,label))，记录此时分裂方法的Gain，一次遍历，选择Gain最大的分割点和缺失值分配方法</p>
 <p>2）重复上面的做法，此时将缺失值统一放到左边，记录Gain，同样选取最大Gain作为切分方法和缺失值分配方法。</p>
@@ -529,11 +531,11 @@ r_{sk}(z) = \frac{1}{\sum_{x_i\in D_k} h_i} \sum_{x_i\le z}h_i
 <li>Block Sharding， 将数据划分到不同硬盘上，提高磁盘吞吐率</li>
 </ul>
 <h3 id="实际操作碰到的问题"><a href="#实际操作碰到的问题" class="headerlink" title="实际操作碰到的问题"></a>实际操作碰到的问题</h3><p>问题1：用户均分布于高分段，且训练集正负样本1:1，跨期测试其大多分布于高分段。图1和图2正负样本权重（<strong>scale_pos_weight=3</strong>）分别为3时的样本有偏现象。</p>
-<p><img src="/2019/12/30/gbdtandxgboost-part2/images\正负样本权重比3仿真结果.png" alt="正负样本权重比3仿真结果"></p>
-<p><img src="/2019/12/30/gbdtandxgboost-part2/images\1576062894361.png" alt="1576062894361"></p>
+<p><img src="/images/正负样本权重比3仿真结果.png" alt="正负样本权重比3仿真结果"></p>
+<p><img src="/images/1576062894361.png" alt="1576062894361"></p>
 <p>因为实际上我的样本是1:1,训练的时候增加了正样本的权重，所以训练的结果右偏。</p>
 <p>改变正负样本权重为1:1（<strong>scale_pos_weight=1</strong>）后，训练结果如下图所示：</p>
-<p><img src="/2019/12/30/gbdtandxgboost-part2/images\正负样本得分权重比为1.png" alt="正负样本得分权重比为1"></p>
+<p><img src="/images/正负样本得分权重比为1.png" alt="正负样本得分权重比为1"></p>
 <h3 id="参考文献："><a href="#参考文献：" class="headerlink" title="参考文献："></a>参考文献：</h3><p>[1] GDBT做分类的方法： <a href="https://www.cnblogs.com/modifyrong/p/7744987.html" target="_blank" rel="noopener">https://www.cnblogs.com/modifyrong/p/7744987.html</a></p>
 <p>[2] GBDT 梯度计算方法： <a href="https://zhuanlan.zhihu.com/p/46445201" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/46445201</a></p>
 <p>[3] SoftMax梯度推导： <a href="http://onlynice.me/2017/11/18/Softmax回归及其softmax-cross-entropy-loss推导/" target="_blank" rel="noopener">http://onlynice.me/2017/11/18/Softmax回归及其softmax-cross-entropy-loss推导/</a></p>
@@ -733,7 +735,7 @@ r_{sk}(z) = \frac{1}{\sum_{x_i\in D_k} h_i} \sum_{x_i\le z}h_i
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#XGBOOST算法原理及相应流程"><span class="nav-number">1.</span> <span class="nav-text">XGBOOST算法原理及相应流程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#基本原理"><span class="nav-number">1.1.</span> <span class="nav-text">基本原理</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#XGBOOST算法流程"><span class="nav-number"></span> <span class="nav-text">XGBOOST算法流程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#XGBOOST理论推导"><span class="nav-number">0.1.</span> <span class="nav-text">XGBOOST理论推导</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#节点分裂策略"><span class="nav-number">0.2.</span> <span class="nav-text">节点分裂策略</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3中可能的节点分割方法"><span class="nav-number"></span> <span class="nav-text">3中可能的节点分割方法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#候选分割点的给出方法"><span class="nav-number"></span> <span class="nav-text">候选分割点的给出方法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#稀疏感知分裂算法流程"><span class="nav-number"></span> <span class="nav-text">稀疏感知分裂算法流程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#我理解的XGBOOST处理缺失值的方法"><span class="nav-number"></span> <span class="nav-text">我理解的XGBOOST处理缺失值的方法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#系统设计上的优点"><span class="nav-number">0.1.</span> <span class="nav-text">系统设计上的优点</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实际操作碰到的问题"><span class="nav-number">1.</span> <span class="nav-text">实际操作碰到的问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考文献："><span class="nav-number">2.</span> <span class="nav-text">参考文献：</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#XGBOOST算法原理及相应流程"><span class="nav-number">1.</span> <span class="nav-text">XGBOOST算法原理及相应流程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#基本原理"><span class="nav-number">1.1.</span> <span class="nav-text">基本原理</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#XGBOOST算法流程"><span class="nav-number"></span> <span class="nav-text">XGBOOST算法流程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#XGBOOST理论推导"><span class="nav-number">0.1.</span> <span class="nav-text">XGBOOST理论推导</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#节点分裂策略"><span class="nav-number">0.2.</span> <span class="nav-text">节点分裂策略</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3中可能的节点分割方法"><span class="nav-number"></span> <span class="nav-text">3中可能的节点分割方法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#候选分割点的给出方法"><span class="nav-number"></span> <span class="nav-text">候选分割点的给出方法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#系统设计上的优点"><span class="nav-number">0.1.</span> <span class="nav-text">系统设计上的优点</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实际操作碰到的问题"><span class="nav-number">1.</span> <span class="nav-text">实际操作碰到的问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考文献："><span class="nav-number">2.</span> <span class="nav-text">参考文献：</span></a></li></ol></div>
             
 
           </div>

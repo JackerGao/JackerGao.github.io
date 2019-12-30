@@ -87,14 +87,14 @@
 <meta property="og:site_name" content="ML">
 <meta property="og:description" content="写在前面泰勒公式 泰勒公式是一个用函数在某点的信息描述其附近取值的公式。 基本形式为：  f(x) = \sum_{n=0}^n\frac{f^n(x_0)}{n!}(x-x_0)^n \tag{1} 以上是泰勒公式的基本定义和基本形式。 泰勒的一阶展开为：  \begin{align} &amp;导数定义：\frac{f(x)-f(x_0)}{x-x_0}=f^\prime(x) \to f(x) =">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https:&#x2F;&#x2F;jackergao.github.io&#x2F;2019&#x2F;12&#x2F;30&#x2F;gbdtandxgboostunderstanding&#x2F;myallfile&#x2F;work&#x2F;机器学习知识库&#x2F;AlgorithmUnderstanding&#x2F;source&#x2F;images&#x2F;f0ab4cf35388116d91f78adefa3807e.jpg">
-<meta property="og:image" content="https:&#x2F;&#x2F;jackergao.github.io&#x2F;2019&#x2F;12&#x2F;30&#x2F;gbdtandxgboostunderstanding&#x2F;myallfile&#x2F;work&#x2F;机器学习知识库&#x2F;AlgorithmUnderstanding&#x2F;source&#x2F;images&#x2F;213d981a40d804f784ff885ea74c506.jpg">
-<meta property="og:image" content="https:&#x2F;&#x2F;jackergao.github.io&#x2F;2019&#x2F;12&#x2F;30&#x2F;gbdtandxgboostunderstanding&#x2F;myallfile&#x2F;work&#x2F;机器学习知识库&#x2F;AlgorithmUnderstanding&#x2F;source&#x2F;images&#x2F;cb03cc2d8da084bdefcabd6762a9b77.jpg">
-<meta property="og:image" content="https:&#x2F;&#x2F;jackergao.github.io&#x2F;2019&#x2F;12&#x2F;30&#x2F;gbdtandxgboostunderstanding&#x2F;myallfile&#x2F;work&#x2F;机器学习知识库&#x2F;AlgorithmUnderstanding&#x2F;source&#x2F;images&#x2F;453b919092fde40a451e215f64e4082.jpg">
-<meta property="og:image" content="https:&#x2F;&#x2F;images2017.cnblogs.com&#x2F;blog&#x2F;666027&#x2F;201711&#x2F;666027-20171107095601544-1325744377.jpg">
-<meta property="og:updated_time" content="2019-12-30T13:52:06.635Z">
+<meta property="og:image" content="https:&#x2F;&#x2F;jackergao.github.io&#x2F;images&#x2F;f0ab4cf35388116d91f78adefa3807e.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;jackergao.github.io&#x2F;images&#x2F;213d981a40d804f784ff885ea74c506.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;jackergao.github.io&#x2F;images&#x2F;cb03cc2d8da084bdefcabd6762a9b77.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;jackergao.github.io&#x2F;images&#x2F;453b919092fde40a451e215f64e4082.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;jackergao.github.io&#x2F;images&#x2F;666027-20171107095601544-1325744377.jpg">
+<meta property="og:updated_time" content="2019-12-30T14:18:08.775Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https:&#x2F;&#x2F;jackergao.github.io&#x2F;2019&#x2F;12&#x2F;30&#x2F;gbdtandxgboostunderstanding&#x2F;myallfile&#x2F;work&#x2F;机器学习知识库&#x2F;AlgorithmUnderstanding&#x2F;source&#x2F;images&#x2F;f0ab4cf35388116d91f78adefa3807e.jpg">
+<meta name="twitter:image" content="https:&#x2F;&#x2F;jackergao.github.io&#x2F;images&#x2F;f0ab4cf35388116d91f78adefa3807e.jpg">
 
 
 
@@ -474,13 +474,13 @@ L(\theta^t) &= L(\theta^{t-1}+\triangle\theta) \nonumber \\
 \theta_t& =-\alpha g_t(注意：g_t = L^\prime(\theta^{t-1})) \nonumber\\
 \theta &= \sum_{t=0}^T\theta_t \tag{10}
 \end{align}</script><p>在参数空间中，最终的参数等于每次迭代的增量的累加和，$\theta_0$为初始值。手推公式如下：</p>
-<p><img src="/2019/12/30/gbdtandxgboostunderstanding/myallfile\work\机器学习知识库\AlgorithmUnderstanding\source\images\f0ab4cf35388116d91f78adefa3807e.jpg" alt="f0ab4cf35388116d91f78adefa3807e"></p>
+<p><img src="/images/f0ab4cf35388116d91f78adefa3807e.jpg" alt="f0ab4cf35388116d91f78adefa3807e"></p>
 <p><strong>GBDT函数空间</strong></p>
 <p>GBDT在函数空间更新的方式基本思想和参数空间很像，即：</p>
 <script type="math/tex; mode=display">
 F^t(x) = F^{(t-1)}(x)+f_t(x) \nonumber\\
-f_t(x)=-\alpha g_t(注：g_t = L^\prime(F^{t-1}(x)),如果Loss为均方误差函数：\frac{\partial L(F_{m-1(x)})}{\partial F_{m-1}(x)}=y_i-F_{m-1}(x_i) = 残差 \nonumber \\
-F(x) = \sum_{t=0}^Tf_t(x)</script><p><img src="/2019/12/30/gbdtandxgboostunderstanding/myallfile\work\机器学习知识库\AlgorithmUnderstanding\source\images\213d981a40d804f784ff885ea74c506.jpg" alt="213d981a40d804f784ff885ea74c506"></p>
+f_t(x)=-\alpha g_t(注：g_t = L^\prime(F^{t-1}(x)),如果Loss为均方误差函数：\nonumber\\ \frac{\partial L(F_{m-1(x)})}{\partial F_{m-1}(x)}=y_i-F_{m-1}(x_i) = 残差 \nonumber \\
+F(x) = \sum_{t=0}^Tf_t(x)</script><p><img src="/images/213d981a40d804f784ff885ea74c506.jpg" alt="213d981a40d804f784ff885ea74c506"></p>
 <p><strong>XGBOOST参数空间</strong></p>
 <p>XGBOOST参数空间更新优化用到了二阶导数信息。参数空间：</p>
 <script type="math/tex; mode=display">
@@ -488,7 +488,7 @@ F(x) = \sum_{t=0}^Tf_t(x)</script><p><img src="/2019/12/30/gbdtandxgboostunderst
 \theta^t &= \theta^{t-1}+\theta_t \nonumber \\
 \theta_t& =-\frac{g}{h}(注意：g_t = L^\prime(\theta^{t-1}),h_t=L^{''}(\theta^{t-1})) \nonumber\\
 \theta &= \sum_{t=0}^T\theta_t \tag{11}
-\end{align}</script><p><img src="/2019/12/30/gbdtandxgboostunderstanding/myallfile\work\机器学习知识库\AlgorithmUnderstanding\source\images\cb03cc2d8da084bdefcabd6762a9b77.jpg" alt="cb03cc2d8da084bdefcabd6762a9b77"></p>
+\end{align}</script><p><img src="/images/cb03cc2d8da084bdefcabd6762a9b77.jpg" alt="cb03cc2d8da084bdefcabd6762a9b77"></p>
 <p><strong>XGBOOST函数空间</strong></p>
 <p>在空间中，XGBOOST相比于GBDT来说，使用了二阶信息(牛顿法)。</p>
 <script type="math/tex; mode=display">
@@ -496,7 +496,7 @@ F^t(x) = F^{(t-1)}(x)+f_t(x) \nonumber\\
 f_t(x)=-\alpha\frac{ g_t}{h_t}(注：g_t = L(f^{t-1}(x))) \nonumber \\
 F(x) = \sum_{t=0}^Tf_t(x) \tag{12}</script><p>Boosting算法是一种加法模型（addictive model）</p>
 <script type="math/tex; mode=display">
-F(x) = \sum_{t=0}^Tf_t(x) \tag{13}</script><p><img src="/2019/12/30/gbdtandxgboostunderstanding/myallfile\work\机器学习知识库\AlgorithmUnderstanding\source\images\453b919092fde40a451e215f64e4082.jpg" alt="453b919092fde40a451e215f64e4082"></p>
+F(x) = \sum_{t=0}^Tf_t(x) \tag{13}</script><p><img src="/images/453b919092fde40a451e215f64e4082.jpg" alt="453b919092fde40a451e215f64e4082"></p>
 <p>基分类器采用回归树，数模型的优点如下：</p>
 <blockquote>
 <p>1) 不用归一化特征，非线性模型</p>
@@ -512,7 +512,9 @@ F_m(x;w) = F_{(m-1)}(x)+f_t(x) =\sum_{t=0}^Tf_t(x)\nonumber \tag{14}</script><p>
 <p>算法步骤：</p>
 <p>第一步：初始化基分类器的初始值为： $f_0=c_0$(很小的数)</p>
 <p>第二步：for t  in T(Tree number):</p>
-<p>（1） 计算$Loss = \sum_{i=1}^nL(y_i,\hat y_i)$对的一阶$g_t=\frac{\partial L(y_i,\hat y_i)}{\partial F_{m-1}}|_{\hat y_i = F_{m-1}(x_i)}=(y_i-F_{m-1}(x_i))=residual(只有当损失函数均方误差函数时，一阶导数才是残差)$</p>
+<p>（1） 计算$Loss = \sum_{i=1}^nL(y_i,\hat y_i)$对的一阶:</p>
+<p>   $g_t=\frac{\partial L(y_i,\hat y_i)}{\partial F_{m-1}}|_{\hat y_i = F_{m-1}(x_i)}=(y_i-F_{m-1}(x_i))=residual$  (只有当损失函数均方误差函数时，一</p>
+<p>​    阶导数才是残差)</p>
 <p>（2）计算当前迭代树的更新值（一棵新树）： $f_t(x_i)=-\alpha g_t(x_i)$</p>
 <p>​    （2-1）利用MMSE方法求得m次迭代的分割点$s$，划分区域$R_1$和$R_2$以及各个区域的平均值作为权重值</p>
 <p>​    （2-2）由树的分割点和划分区域的均值得到迭代树：$f_t(x)$</p>
@@ -716,7 +718,7 @@ T_1(x) =\begin {cases}
 <p>三分类的问题，<strong>每次训练的目标都是一个one-hot，比如说预测山鸢尾，只有它为0，其他都是0，形成训练样本标签为$y=\{1,1,0,0,0,0\}$.(理解有误)</strong>我们用一个三维向量来标志样本的label。[1,0,0] 表示样本属于山鸢尾，[0,1,0] 表示样本属于杂色鸢尾，[0,0,1] 表示属于维吉尼亚鸢尾。</p>
 <p>GBDT 的多分类是针对每个类都独立训练一个 CART Tree。所以这里，我们将针对山鸢尾类别训练一个 CART Tree 1，杂色鸢尾训练一个 CART Tree 2 。维吉尼亚鸢尾训练一个CART Tree 3，这三个树相互独立。</p>
 <p>先针对第一类进行训练，<strong>同样利用mse进行分裂点和分裂特征筛选</strong>，选择最小的mse作为分裂特征和分类点。</p>
-<p><img src="https://images2017.cnblogs.com/blog/666027/201711/666027-20171107095601544-1325744377.jpg" alt="img">    </p>
+<p><img src="/images/666027-20171107095601544-1325744377.jpg" alt="666027-20171107095601544-1325744377"></p>
 <p>同样，一次迭代的情况下，会同时给出针对第二类和第三类的训练树。</p>
 <p><strong>GBDT回归器损失函数</strong><br>对于回归问题，GBDT采用的损失函数有三个，分别为：MSE(Mean Square Error)， LAD(Least Absolutely Deviation)，Huber(1964,Huber)。</p>
 <p><strong>GBDT-MSE-Regression</strong></p>
@@ -758,7 +760,8 @@ H(p,q) &=-\sum_{j=1}^n \sum_{i=1}^mp_ilogq_i \nonumber \\
 &总结多分类梯度计算方式为：g_t|_{F_m(x)} = \hat y_i - y_i \tag{21}
 \end{align}</script><p>GBDT梯度计算总结：</p>
 <blockquote>
-<h1 id="GBDT梯度计算总结"><a href="#GBDT梯度计算总结" class="headerlink" title="GBDT梯度计算总结"></a>GBDT梯度计算总结</h1><p>回归问题：1）损失函数为MSE时：$g_t = (\hat y_i -y_i)$</p>
+<p>//#GBDT梯度计算总结</p>
+<p>回归问题：1）损失函数为MSE时：$g_t = (\hat y_i -y_i)$</p>
 <p>​                   2）损失函数为LAD：$g_t \in\{1 ,-1\}$，根据预测结果和真实值选择梯度更新</p>
 <p>二分类问题： $g_t = \hat y_i -y_i$，其中预测结果$\hat y_i = \frac{1}{1+e^{-F_m(x)}}$</p>
 <p>三分类问题：$g_t = \hat y_i -y_i$，其中预测结果$\hat y_i= \frac{e^{F^i_m(x)}}{\sum_{i^\prime}e^{F^{i^\prime}_m(x)}}$</p>
@@ -963,7 +966,7 @@ H(p,q) &=-\sum_{j=1}^n \sum_{i=1}^mp_ilogq_i \nonumber \\
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#写在前面"><span class="nav-number">1.</span> <span class="nav-text">写在前面</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#泰勒公式"><span class="nav-number">1.1.</span> <span class="nav-text">泰勒公式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#梯度下降法和牛顿法的证明"><span class="nav-number">1.2.</span> <span class="nav-text">梯度下降法和牛顿法的证明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#从参数空间到函数空间"><span class="nav-number">1.3.</span> <span class="nav-text">从参数空间到函数空间</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GBDT算法原理"><span class="nav-number">1.4.</span> <span class="nav-text">GBDT算法原理</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#huber"><span class="nav-number"></span> <span class="nav-text">huber</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#GBDT梯度计算总结"><span class="nav-number"></span> <span class="nav-text">GBDT梯度计算总结</span></a></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#写在前面"><span class="nav-number">1.</span> <span class="nav-text">写在前面</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#泰勒公式"><span class="nav-number">1.1.</span> <span class="nav-text">泰勒公式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#梯度下降法和牛顿法的证明"><span class="nav-number">1.2.</span> <span class="nav-text">梯度下降法和牛顿法的证明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#从参数空间到函数空间"><span class="nav-number">1.3.</span> <span class="nav-text">从参数空间到函数空间</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GBDT算法原理"><span class="nav-number">1.4.</span> <span class="nav-text">GBDT算法原理</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#huber"><span class="nav-number"></span> <span class="nav-text">huber</span></a></div>
             
 
           </div>
