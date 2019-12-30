@@ -419,7 +419,8 @@
 <h4 id="基本原理"><a href="#基本原理" class="headerlink" title="基本原理"></a>基本原理</h4><p>XGBOOST-Extreme Gradient Boosting，从名字就可以看出，它利用了梯度提升的思想，但是做的更加极致，这个是因为它使用了Newton法进行更新每棵树（泰勒二阶展开）。</p>
 <p>XGBOOST算法的流程为：</p>
 <blockquote>
-<h1 id="XGBOOST算法流程"><a href="#XGBOOST算法流程" class="headerlink" title="XGBOOST算法流程"></a>XGBOOST算法流程</h1><p>第一步：确定损失函数，泰勒二阶展开，求解最优树权重，继而求出最优树结构和分裂标准函数。</p>
+<p>//#XGBOOST算法流程</p>
+<p>第一步：确定损失函数，泰勒二阶展开，求解最优树权重，继而求出最优树结构和分裂标准函数。</p>
 <p>第二步：按照分裂函数逐步一棵树一棵树去生成，值的注意的是，生成的每棵树是利用Newton法迭代的。</p>
 <p>第三步：将每棵树进行累加，作为最终生成的数（损失最小，达到最优）。</p>
 <p>算法结束</p>

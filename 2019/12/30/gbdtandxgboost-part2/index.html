@@ -91,7 +91,7 @@
 <meta property="og:image" content="https:&#x2F;&#x2F;jackergao.github.io&#x2F;images&#x2F;正负样本权重比3仿真结果.png">
 <meta property="og:image" content="https:&#x2F;&#x2F;jackergao.github.io&#x2F;images&#x2F;1576062894361.png">
 <meta property="og:image" content="https:&#x2F;&#x2F;jackergao.github.io&#x2F;images&#x2F;正负样本得分权重比为1.png">
-<meta property="og:updated_time" content="2019-12-30T14:11:02.842Z">
+<meta property="og:updated_time" content="2019-12-30T14:25:31.030Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https:&#x2F;&#x2F;jackergao.github.io&#x2F;images&#x2F;1577714396440.png">
 
@@ -427,7 +427,8 @@
 <h4 id="基本原理"><a href="#基本原理" class="headerlink" title="基本原理"></a>基本原理</h4><p>XGBOOST-Extreme Gradient Boosting，从名字就可以看出，它利用了梯度提升的思想，但是做的更加极致，这个是因为它使用了Newton法进行更新每棵树（泰勒二阶展开）。</p>
 <p>XGBOOST算法的流程为：</p>
 <blockquote>
-<h1 id="XGBOOST算法流程"><a href="#XGBOOST算法流程" class="headerlink" title="XGBOOST算法流程"></a>XGBOOST算法流程</h1><p>第一步：确定损失函数，泰勒二阶展开，求解最优树权重，继而求出最优树结构和分裂标准函数。</p>
+<p>//#XGBOOST算法流程</p>
+<p>第一步：确定损失函数，泰勒二阶展开，求解最优树权重，继而求出最优树结构和分裂标准函数。</p>
 <p>第二步：按照分裂函数逐步一棵树一棵树去生成，值的注意的是，生成的每棵树是利用Newton法迭代的。</p>
 <p>第三步：将每棵树进行累加，作为最终生成的数（损失最小，达到最优）。</p>
 <p>算法结束</p>
@@ -469,13 +470,15 @@ SpliterFunction  &= \frac{1}{2}\frac{G_{jL}^2}{H_{jL}+\lambda}+\frac{1}{2}\frac{
 \end{align}</script><p><strong>总是从单个节点逐步地分割成两个分支，未分前T=1,分割后，T=2。</strong></p>
 <h4 id="节点分裂策略"><a href="#节点分裂策略" class="headerlink" title="节点分裂策略"></a>节点分裂策略</h4><p>上面已经将第一步的理论部分进行了推导，得到了最优树权重，评判树结构好坏的Loss函数和分裂标签函数。如果不考虑计算量问题，可以通过枚举的方法建立可能树的全集，但是这在实际中显然是不现实的。三种可选的分割节点的方法：</p>
 <blockquote>
-<h1 id="3中可能的节点分割方法"><a href="#3中可能的节点分割方法" class="headerlink" title="3中可能的节点分割方法"></a>3中可能的节点分割方法</h1><p>1）朴素贪婪算法</p>
+<p>//#3中可能的节点分割方法</p>
+<p>1）朴素贪婪算法</p>
 <p>2）近似贪婪算法-分位点</p>
 <p>3）加权分位点</p>
 </blockquote>
 <p>作者提到可以按照global的方式给出候选切分点，也可以按照local的方式给出候选切分点。</p>
 <blockquote>
-<h1 id="候选分割点的给出方法"><a href="#候选分割点的给出方法" class="headerlink" title="候选分割点的给出方法"></a>候选分割点的给出方法</h1><p>1）global方式—在树的初始化阶段就给出候选的切分点，以后迭代（迭代新树）的过程中都使用该分割点，只计算一次（每棵树只需要计算一次），但是需要更多的候选分割点（如果想得到和Local效果相当的话），这是因为在每个分割节点上没有优化这些候选点（当前节点分裂更优地应该针对当前节点内的样本进行划分，而不是全部数据）。</p>
+<p>//#候选分割点的给出方法</p>
+<p>1）global方式—在树的初始化阶段就给出候选的切分点，以后迭代（迭代新树）的过程中都使用该分割点，只计算一次（每棵树只需要计算一次），但是需要更多的候选分割点（如果想得到和Local效果相当的话），这是因为在每个分割节点上没有优化这些候选点（当前节点分裂更优地应该针对当前节点内的样本进行划分，而不是全部数据）。</p>
 <p>2）Local方式—在每个分割节点上给出候选点。多次计算，但是只需要针对父节点给出候选分割点。</p>
 <p>在Global方式下如果分割点足够多的话，就会得到和Local方式相似的性能。</p>
 </blockquote>
@@ -490,8 +493,7 @@ Loss(y_i,\hat y_i) = \frac{1}{2}\sum_{i=1}^nh_i(f_t(x_i)-\frac{g_i}{h_i})^2+\Ome
 \begin{align}
 r_{sk}(z) = \frac{1}{\sum_{x_i\in D_k} h_i} \sum_{x_i\le z}h_i \tag{30}
 \end{align}</script><p> 通过对二阶导数进行排序同样可以达到排序的目的，那么进行为什么还要定义排序函数呢，我理解原因之一是和非加权分位点一样，在有加权($h_i$)的情况下，达到样本有权重“均衡”地分配的目的。</p>
-<p> <strong>稀疏感知</strong></p>
-<p>XGBOOST对于缺失值可以不做处理，直接进行训练，也可以理解成XGBOOST算法将缺失值作为数据点，输入到模型训练中，然后找到缺失值最好的分裂点。但是这样做有疑问的地方：</p>
+<h3 id="稀疏感知"><a href="#稀疏感知" class="headerlink" title="稀疏感知"></a>稀疏感知</h3><p>XGBOOST对于缺失值可以不做处理，直接进行训练，也可以理解成XGBOOST算法将缺失值作为数据点，输入到模型训练中，然后找到缺失值最好的分裂点。但是这样做有疑问的地方：</p>
 <p>1）缺失值都已经缺失了，如何判断缺失值分裂到左边获得的得分增益高，还是右边获得得分增益高？</p>
 <p>2）”Github上XGBOOST作者说，分到左边或者右边，依据是训练时损失函数的降低程度“，但是如果值都missing了，到底怎么计算呢？</p>
 <p>论文给出的稀疏感知的算法过程没有详细的计算过程：</p>
@@ -519,7 +521,7 @@ r_{sk}(z) = \frac{1}{\sum_{x_i\in D_k} h_i} \sum_{x_i\le z}h_i \tag{30}
 </blockquote>
 </blockquote>
 <p>上面是我的理解。<strong>但是有一点疑惑，既然可以计算所有缺失样本统一分到左边或者右边的损失，为什么不对缺失样本进行一一判断呢，这样可以使得损失更小(相比统一放到左边或者右边)？也许是XGBOOST作者考虑到计算量的问题。</strong></p>
-<h4 id="系统设计上的优点"><a href="#系统设计上的优点" class="headerlink" title="系统设计上的优点"></a>系统设计上的优点</h4><p><strong>分块并行</strong></p>
+<h3 id="系统设计上的优点"><a href="#系统设计上的优点" class="headerlink" title="系统设计上的优点"></a>系统设计上的优点</h3><p><strong>分块并行</strong></p>
 <p>在建树的过程中，最耗时是找最优的切分点，而这个过程中，最耗时的部分是将数据排序。为了减少排序的时间，提出Block结构存储数据。Block结构数据按列存储，可以同时访问所有的列，很容易实现并行的寻找分裂点算法。此外也可以方便实现之后要讲的out-of score计算。</p>
 <p><strong>缓存优化 – Cache-aware Access</strong></p>
 <p>缓存预取,对每个线程分配一个连续的buffer，读取梯度信息并存入Buffer中</p>
@@ -735,7 +737,7 @@ r_{sk}(z) = \frac{1}{\sum_{x_i\in D_k} h_i} \sum_{x_i\le z}h_i \tag{30}
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#XGBOOST算法原理及相应流程"><span class="nav-number">1.</span> <span class="nav-text">XGBOOST算法原理及相应流程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#基本原理"><span class="nav-number">1.1.</span> <span class="nav-text">基本原理</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#XGBOOST算法流程"><span class="nav-number"></span> <span class="nav-text">XGBOOST算法流程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#XGBOOST理论推导"><span class="nav-number">0.1.</span> <span class="nav-text">XGBOOST理论推导</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#节点分裂策略"><span class="nav-number">0.2.</span> <span class="nav-text">节点分裂策略</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3中可能的节点分割方法"><span class="nav-number"></span> <span class="nav-text">3中可能的节点分割方法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#候选分割点的给出方法"><span class="nav-number"></span> <span class="nav-text">候选分割点的给出方法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#系统设计上的优点"><span class="nav-number">0.1.</span> <span class="nav-text">系统设计上的优点</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实际操作碰到的问题"><span class="nav-number">1.</span> <span class="nav-text">实际操作碰到的问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考文献："><span class="nav-number">2.</span> <span class="nav-text">参考文献：</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#XGBOOST算法原理及相应流程"><span class="nav-number">1.</span> <span class="nav-text">XGBOOST算法原理及相应流程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#基本原理"><span class="nav-number">1.1.</span> <span class="nav-text">基本原理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#XGBOOST理论推导"><span class="nav-number">1.2.</span> <span class="nav-text">XGBOOST理论推导</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#节点分裂策略"><span class="nav-number">1.3.</span> <span class="nav-text">节点分裂策略</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#稀疏感知"><span class="nav-number">2.</span> <span class="nav-text">稀疏感知</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#系统设计上的优点"><span class="nav-number">3.</span> <span class="nav-text">系统设计上的优点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实际操作碰到的问题"><span class="nav-number">4.</span> <span class="nav-text">实际操作碰到的问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考文献："><span class="nav-number">5.</span> <span class="nav-text">参考文献：</span></a></li></ol></div>
             
 
           </div>
