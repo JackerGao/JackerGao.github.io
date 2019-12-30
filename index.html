@@ -294,6 +294,189 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://jackergao.github.io/2019/12/30/gbdtandxgboost-part2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Ali">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatara.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ML">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/12/30/gbdtandxgboost-part2/" itemprop="url">GBDT和XGBOOST算法推导和流程详解(PART-2)</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-12-30T21:53:39+08:00">
+                2019-12-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/gbdt/" itemprop="url" rel="index">
+                    <span itemprop="name">GBDT</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/gbdt/xgboost/" itemprop="url" rel="index">
+                    <span itemprop="name">XGBOOST</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/gbdt/xgboost/additive-model/" itemprop="url" rel="index">
+                    <span itemprop="name">additive model</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p><strong>注：上接GBDT和XGBOOST算法推导和流程详解(PART-2)</strong></p>
+<h3 id="XGBOOST算法原理及相应流程"><a href="#XGBOOST算法原理及相应流程" class="headerlink" title="XGBOOST算法原理及相应流程"></a>XGBOOST算法原理及相应流程</h3><p>XGBOOST相比GBDT有以下有点和改进:</p>
+<p>1）分布式-特征切分</p>
+<p>2）稀疏感知-缺失值直接当做特征处理</p>
+<p>3）加权分位点进行-树构建节点分割</p>
+<p>4）泰勒二阶导数-Newtons Methods更新方法</p>
+<p>5）防止过拟合的方法-正则+shrinkage+subsampling</p>
+<p>6）系统设计上更加优化</p>
+<h4 id="基本原理"><a href="#基本原理" class="headerlink" title="基本原理"></a>基本原理</h4><p>XGBOOST-Extreme Gradient Boosting，从名字就可以看出，它利用了梯度提升的思想，但是做的更加极致，这个是因为它使用了Newton法进行更新每棵树（泰勒二阶展开）。</p>
+<p>XGBOOST算法的流程为：</p>
+<blockquote>
+<h1 id="XGBOOST算法流程"><a href="#XGBOOST算法流程" class="headerlink" title="XGBOOST算法流程"></a>XGBOOST算法流程</h1><p>第一步：确定损失函数，泰勒二阶展开，求解最优树权重，继而求出最优树结构和分裂标准函数。</p>
+<p>第二步：按照分裂函数逐步一棵树一棵树去生成，值的注意的是，生成的每棵树是利用Newton法迭代的。</p>
+<p>第三步：将每棵树进行累加，作为最终生成的数（损失最小，达到最优）。</p>
+<p>算法结束</p>
+</blockquote>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/12/30/gbdtandxgboost-part2/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-tags" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://jackergao.github.io/2019/12/30/gbdtandxgboostunderstanding/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -408,8 +591,7 @@
 
       
         
-          
-            <h2 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h2><h3 id="泰勒公式"><a href="#泰勒公式" class="headerlink" title="泰勒公式"></a>泰勒公式</h3><blockquote>
+          <h2 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h2><h3 id="泰勒公式"><a href="#泰勒公式" class="headerlink" title="泰勒公式"></a>泰勒公式</h3><blockquote>
 <p>泰勒公式是一个用函数在某点的信息描述其附近取值的公式。</p>
 <p>基本形式为：</p>
 <script type="math/tex; mode=display">
@@ -431,332 +613,13 @@ f(x) = \sum_{n=0}^n\frac{f^n(x_0)}{n!}(x-x_0)^n \tag{1}</script></blockquote>
 则有：L(x^t) &= L(x^{t-1}+\triangle x)\nonumber \\
 &=L(x^{t-1})+\triangle x L^\prime(x^{t-1}) + \frac{1}{2}\triangle xL^{''}(x^{t-1}) \tag{6}
 \end{align}</script><p>只不过GBDT用的是一阶，XGBOOST为二阶。</p>
-<h3 id="梯度下降法和牛顿法的证明"><a href="#梯度下降法和牛顿法的证明" class="headerlink" title="梯度下降法和牛顿法的证明"></a>梯度下降法和牛顿法的证明</h3><p><strong>梯度下降法(Gradient descend)</strong></p>
-<p>在机器学习中，最小化损失函数$L(\theta)$，然后求解参数$\theta$，其中比较常用的优化算法是梯度下降法和牛顿法。梯度下降法使用的是损失函数的一阶导数，牛顿不仅用到了一阶导数，而且用到了二阶导数。</p>
-<script type="math/tex; mode=display">
-\begin{align}
-迭代公式: \theta^t=\theta^{t-1}+\triangle \theta \nonumber\\
-将L(\theta^t)一阶展开: \nonumber \\
-L(\theta^t) = L(\theta^{t-1}+\triangle\theta) \nonumber \\
-\simeq L(\theta^{t-1})+\triangle \theta L^\prime(\theta ^{t-1}) \tag{7}
-\end{align}</script><p>上式$\theta^{t-1}$可理解成上一轮迭代参数的解，$\theta^t$可理解为本轮参数得到的解，$\triangle \theta$表示本轮迭代参数要变化的量。</p>
-<script type="math/tex; mode=display">
-要使得L(\theta^t)<L(\theta^{t-1}),可取\triangle \theta = -\alpha L^\prime(\theta^{t-1}),则有更新的过程为： \nonumber\\
-\theta^t=\theta^{t-1}-\alpha L^\prime(\theta^{t-1}) \tag{8}</script><p><strong>牛顿法（Newtons methods）</strong></p>
-<script type="math/tex; mode=display">
-\begin{align}
-&迭代公式: \theta^t=\theta^{t-1}+\triangle \theta \nonumber\\
-&将L(\theta^t)二阶展开: \nonumber \\
-L(\theta^t) &= L(\theta^{t-1}+\triangle\theta) \nonumber \\
-&\simeq L(\theta^{t-1})+\triangle \theta L^\prime(\theta ^{t-1})+\frac{1}{2}\triangle \theta^2L^{''}(\theta^{t-1}) \nonumber\\
-&= L(\theta^{t-1})+g\triangle \theta +\frac{1}{2}h\triangle \theta^2 \tag{8}
-\end{align}</script><p>简化过程，认为参数是标量，要使得$L(\theta^t)$最小，即让$g\triangle \theta +\frac{1}{2}h\triangle \theta^2$极小，则有：</p>
-<script type="math/tex; mode=display">
-\begin{align}
-&\frac{\partial (g\triangle \theta +\frac{1}{2}h\triangle \theta^2)}{\partial \triangle \theta} = 0 \nonumber \\
-&\to \triangle \theta = -\frac{g}{h} \nonumber \\
-&\to \theta ^t = \theta^{t-1}-\frac{g}{h} \tag{9}
-\end{align}</script><p>即有Newtons methods的迭代公式为$\theta ^t = \theta^{t-1}-H^{-1}G$，$H$为Hessian Matrix.</p>
-<h3 id="从参数空间到函数空间"><a href="#从参数空间到函数空间" class="headerlink" title="从参数空间到函数空间"></a>从参数空间到函数空间</h3><p><strong>GBDT参数空间</strong></p>
-<p>GBDT在参数空间中利用梯度下降法进行更新优化。参数空间：</p>
-<script type="math/tex; mode=display">
-\begin{align}
-\theta^t &= \theta^{t-1}+\theta_t \nonumber \\
-\theta_t& =-\alpha g_t(注意：g_t = L^\prime(\theta^{t-1})) \nonumber\\
-\theta &= \sum_{t=0}^T\theta_t \tag{10}
-\end{align}</script><p>在参数空间中，最终的参数等于每次迭代的增量的累加和，$\theta_0$为初始值。手推公式如下：</p>
-<p><img src="/2019/12/30/gbdtandxgboostunderstanding/myallfile\work\机器学习知识库\AlgorithmUnderstanding\source\images\f0ab4cf35388116d91f78adefa3807e.jpg" alt="f0ab4cf35388116d91f78adefa3807e"></p>
-<p><strong>GBDT函数空间</strong></p>
-<p>GBDT在函数空间更新的方式基本思想和参数空间很像，即：</p>
-<script type="math/tex; mode=display">
-F^t(x) = F^{(t-1)}(x)+f_t(x) \nonumber\\
-f_t(x)=-\alpha g_t(注：g_t = L^\prime(F^{t-1}(x)),如果Loss为均方误差函数：\frac{\partial L(F_{m-1(x)})}{\partial F_{m-1}(x)}=y_i-F_{m-1}(x_i) = 残差 \nonumber \\
-F(x) = \sum_{t=0}^Tf_t(x)</script><p><img src="/2019/12/30/gbdtandxgboostunderstanding/myallfile\work\机器学习知识库\AlgorithmUnderstanding\source\images\213d981a40d804f784ff885ea74c506.jpg" alt="213d981a40d804f784ff885ea74c506"></p>
-<p><strong>XGBOOST参数空间</strong></p>
-<p>XGBOOST参数空间更新优化用到了二阶导数信息。参数空间：</p>
-<script type="math/tex; mode=display">
-\begin{align}
-\theta^t &= \theta^{t-1}+\theta_t \nonumber \\
-\theta_t& =-\frac{g}{h}(注意：g_t = L^\prime(\theta^{t-1}),h_t=L^{''}(\theta^{t-1})) \nonumber\\
-\theta &= \sum_{t=0}^T\theta_t \tag{11}
-\end{align}</script><p><img src="/2019/12/30/gbdtandxgboostunderstanding/myallfile\work\机器学习知识库\AlgorithmUnderstanding\source\images\cb03cc2d8da084bdefcabd6762a9b77.jpg" alt="cb03cc2d8da084bdefcabd6762a9b77"></p>
-<p><strong>XGBOOST函数空间</strong></p>
-<p>在空间中，XGBOOST相比于GBDT来说，使用了二阶信息(牛顿法)。</p>
-<script type="math/tex; mode=display">
-F^t(x) = F^{(t-1)}(x)+f_t(x) \nonumber\\
-f_t(x)=-\alpha\frac{ g_t}{h_t}(注：g_t = L(f^{t-1}(x))) \nonumber \\
-F(x) = \sum_{t=0}^Tf_t(x) \tag{12}</script><p>Boosting算法是一种加法模型（addictive model）</p>
-<script type="math/tex; mode=display">
-F(x) = \sum_{t=0}^Tf_t(x) \tag{13}</script><p><img src="/2019/12/30/gbdtandxgboostunderstanding/myallfile\work\机器学习知识库\AlgorithmUnderstanding\source\images\453b919092fde40a451e215f64e4082.jpg" alt="453b919092fde40a451e215f64e4082"></p>
-<p>基分类器采用回归树，数模型的优点如下：</p>
-<blockquote>
-<p>1) 不用归一化特征，非线性模型</p>
-<p>2）有组合特征作用</p>
-<p>3）对缺失值友好，能够很好地处理缺失值</p>
-<p>4）异常点对模型结果影响较小（模型非线性）</p>
-<p>5）有特征选择作用</p>
-</blockquote>
-<h3 id="GBDT算法原理"><a href="#GBDT算法原理" class="headerlink" title="GBDT算法原理"></a>GBDT算法原理</h3><p><strong>算法原理</strong><br>Friedman于1999年提出的算法，其一般表示方法为：</p>
-<script type="math/tex; mode=display">
-F_m(x;w) = F_{(m-1)}(x)+f_t(x) =\sum_{t=0}^Tf_t(x)\nonumber \tag{14}</script><p>其中$x$为输入的样本，如果base learners是CART回归树，则有$f_t=h(x;w)=w_{q(x)}$，在这里，回归树的参数为分割点（split point），分割位置（split allocation）和叶子节点的权重。</p>
-<blockquote>
-<p>算法步骤：</p>
-<p>第一步：初始化基分类器的初始值为： $f_0=c_0$(很小的数)</p>
-<p>第二步：for t  in T(Tree number):</p>
-<p>（1） 计算$Loss = \sum_{i=1}^nL(y_i,\hat y_i)$对的一阶$g_t=\frac{\partial L(y_i,\hat y_i)}{\partial F_{m-1}}|_{\hat y_i = F_{m-1}(x_i)}=(y_i-F_{m-1}(x_i))=residual(只有当损失函数均方误差函数时，一阶导数才是残差)$</p>
-<p>（2）计算当前迭代树的更新值（一棵新树）： $f_t(x_i)=-\alpha g_t(x_i)$</p>
-<p>​    （2-1）利用MMSE方法求得m次迭代的分割点$s$，划分区域$R_1$和$R_2$以及各个区域的平均值作为权重值</p>
-<p>​    （2-2）由树的分割点和划分区域的均值得到迭代树：$f_t(x)$</p>
-<p>（3）计算$y-F_m(x)$得到残差值，后一棵树在残差值上进行更新</p>
-<p>第四步：计算当前迭代后的值：$F_{m}(x) = F_{m-1}(x)+f_t(x)$</p>
-<p>if T(迭代的树的棵数) 满足停止条件 or 到达了最优点 :</p>
-<p>结束</p>
-</blockquote>
-<p><strong>特征选取和切分方法</strong></p>
-<blockquote>
-<p><strong>对于多个特征而言（m个特征+n个样本），使用贪婪的方式m*n次遍历找到mse最小的分裂点，分裂后，依然在孩子节点上进行划分，遍历的次数为child_left_number*n,右孩子节点要划分的话，计算方式和上面相同。注：每次找splitter都是全部的特征，也就是说一棵树中可能多次复用一个特征</strong>。</p>
-<p>The features are always randomly permuted at each split. Therefore, the best found split may vary, even with the same training data and<code>max_features=n_features</code>, if the improvement of the criterion is identical for several splits enumerated during the search of the best  split. To obtain a deterministic behaviour during fitting,  <code>random_state</code> has to be fixed.</p>
-</blockquote>
-<p><strong>GDBT-SPLIT-Regression</strong></p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th>x</th>
-<th>1</th>
-<th>2</th>
-<th>3</th>
-<th>4</th>
-<th>5</th>
-<th>6</th>
-<th>7</th>
-<th>8</th>
-<th>9</th>
-<th>10</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>y</td>
-<td>5.56</td>
-<td>5.7</td>
-<td>5.91</td>
-<td>6.4</td>
-<td>6.8</td>
-<td>7.05</td>
-<td>8.9</td>
-<td>8.7</td>
-<td>9</td>
-<td>9.1</td>
-</tr>
-</tbody>
-</table>
-</div>
-<p>某个特征的分割点$s$的判断函数为：</p>
-<script type="math/tex; mode=display">
-\begin{align}
-split\_function &= \min _{c_1}\sum_{x_i\in R_1}(y_i-c1)+\min_{c_2}\sum_{x_i\in R_2}(y_i-c2) \nonumber\\
-s &= \arg\min _s split\_function \nonumber \\
-&where \quad R_1 = \{x|x\lt s\},R_2=\{x|x\ge s\} \nonumber\\
-&and \quad c_1\frac{1}{N_1}\sum_{i=1}^{N_1}y_i,c_2\frac{1}{N_2}\sum_{i=1}^{N_2}y_i \tag{15}
-\end{align}</script><p>按照这个思路，可以通过遍历的方法得到分裂前后的MSE：</p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th>s</th>
-<th>1.5</th>
-<th>2.5</th>
-<th>3.5</th>
-<th>4.5</th>
-<th>5.5</th>
-<th>6.5</th>
-<th>7.5</th>
-<th>8.5</th>
-<th>9.5</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>y</td>
-<td>15.72</td>
-<td>12.07</td>
-<td>8.36</td>
-<td>5.78</td>
-<td>3.91</td>
-<td>1.93</td>
-<td>8.01</td>
-<td>11.73</td>
-<td>15.74</td>
-</tr>
-</tbody>
-</table>
-</div>
-<p>使得分裂函数最小的值就是分裂值，此时最佳分裂点$s=6.5$，且此时的树$f_1(x)=w^{(1)}_{q(x)}$为：</p>
-<script type="math/tex; mode=display">
-T_1(x) =\begin {cases} 
- 6.24(c_1), &x< 6.5 \nonumber\\
-8.91(c_2), &x\ge 6.5 \tag{16}
-\end {cases}</script><p>$c_1,c_2$为节点的均值，也就是权重，6.5为特征分割点。<br>计算残差，然后用回归树拟合残差：</p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th>x</th>
-<th>1</th>
-<th>2</th>
-<th>3</th>
-<th>4</th>
-<th>5</th>
-<th>6</th>
-<th>7</th>
-<th>8</th>
-<th>9</th>
-<th>10</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>$r_1$</td>
-<td>-0.68</td>
-<td>-0.54</td>
-<td>-0.33</td>
-<td>0.16</td>
-<td>0.56</td>
-<td>0.81</td>
-<td>-0.01</td>
-<td>-0.21</td>
-<td>0.09</td>
-<td>0.14</td>
-</tr>
-</tbody>
-</table>
-</div>
-<p>用$f_1$拟合数据的均方误差为：$L(y,f_1(x))=\sum_{i=1}^{10}(y_i-f_1(x_i))^2 = 1.93$</p>
-<p>现在开始拟合第二棵树$f_2(x)$,重复第一棵树的做法，生成第二棵树。</p>
-<p><strong>GBDT-SPLIT-Classification</strong></p>
-<blockquote>
-<p><strong>1.不管是分类还是回归，GBDT的特征分裂评价函数都是MSE</strong></p>
-<p><strong>2.二分类每次迭代生成一棵树，三分类一次迭代生成3棵树</strong></p>
-</blockquote>
-<p>数据集如下：</p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th>样本编号</th>
-<th>花萼长度(cm)</th>
-<th>花萼宽度(cm)</th>
-<th>花瓣长度(cm)</th>
-<th>花瓣宽度</th>
-<th>花的种类</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1</td>
-<td>5.1</td>
-<td>3.5</td>
-<td>1.4</td>
-<td>0.2</td>
-<td>山鸢尾[1,0,0]</td>
-</tr>
-<tr>
-<td>2</td>
-<td>4.9</td>
-<td>3.0</td>
-<td>1.4</td>
-<td>0.2</td>
-<td>山鸢尾[1,0,0]</td>
-</tr>
-<tr>
-<td>3</td>
-<td>7.0</td>
-<td>3.2</td>
-<td>4.7</td>
-<td>1.4</td>
-<td>杂色鸢尾[0,1,0]</td>
-</tr>
-<tr>
-<td>4</td>
-<td>6.4</td>
-<td>3.2</td>
-<td>4.5</td>
-<td>1.5</td>
-<td>杂色鸢尾[0,1,0]</td>
-</tr>
-<tr>
-<td>5</td>
-<td>6.3</td>
-<td>3.3</td>
-<td>6.0</td>
-<td>2.5</td>
-<td>维吉尼亚鸢尾[0,0,1]</td>
-</tr>
-<tr>
-<td>6</td>
-<td>5.8</td>
-<td>2.7</td>
-<td>5.1</td>
-<td>1.9</td>
-<td>维吉尼亚鸢尾[0,0,1]</td>
-</tr>
-</tbody>
-</table>
-</div>
-<p>三分类的问题，<strong>每次训练的目标都是一个one-hot，比如说预测山鸢尾，只有它为0，其他都是0，形成训练样本标签为$y=\{1,1,0,0,0,0\}$.(理解有误)</strong>我们用一个三维向量来标志样本的label。[1,0,0] 表示样本属于山鸢尾，[0,1,0] 表示样本属于杂色鸢尾，[0,0,1] 表示属于维吉尼亚鸢尾。</p>
-<p>GBDT 的多分类是针对每个类都独立训练一个 CART Tree。所以这里，我们将针对山鸢尾类别训练一个 CART Tree 1，杂色鸢尾训练一个 CART Tree 2 。维吉尼亚鸢尾训练一个CART Tree 3，这三个树相互独立。</p>
-<p>先针对第一类进行训练，<strong>同样利用mse进行分裂点和分裂特征筛选</strong>，选择最小的mse作为分裂特征和分类点。</p>
-<p><img src="https://images2017.cnblogs.com/blog/666027/201711/666027-20171107095601544-1325744377.jpg" alt="img">    </p>
-<p>同样，一次迭代的情况下，会同时给出针对第二类和第三类的训练树。</p>
-<p><strong>GBDT回归器损失函数</strong><br>对于回归问题，GBDT采用的损失函数有三个，分别为：MSE(Mean Square Error)， LAD(Least Absolutely Deviation)，Huber(1964,Huber)。</p>
-<p><strong>GBDT-MSE-Regression</strong></p>
-<p>在处理回归问题的时候，GBDT的损失函数为$MSE=\frac{1}{n}\Sigma_{i=1}^n(y_i-\hat y_i)^2$：</p>
-<script type="math/tex; mode=display">
-\begin{align}
-L(y_i,\hat y_i) &= \frac{1}{2m}\sum_{i=1}^n (y_i-\hat y_i)^2\nonumber \\
-梯度： &\frac{\partial L(y_i,\hat y_i)}{\partial F_{m-1}(x)}|_{\hat y=F_{m-1}(x)} = \frac{1}{m}(y-F_{m-1}(x)) \tag{16}
-\end{align}</script><p><strong>GBDT-LAD-Regression</strong></p>
-<p>当损失函数为$LAD=\frac{1}{m}\sum_{i=1}^m\vert y_i - \hat y \vert$:</p>
-<script type="math/tex; mode=display">
-L(y_i,\hat y) = \sum_{i=1}^m\vert y -\hat y \vert \nonumber\\
-梯度:\frac{\partial L(y_i-\hat y)}{\partial \hat y}|_{\hat y = F_{m-1}(x)} 
-= \begin {cases} 
- 1, &y_i-\hat y \ge 0 \nonumber\\
--1, &y_i-\hat y \lt 0
-\end {cases} \tag{17}</script><blockquote>
-<h1 id="huber"><a href="#huber" class="headerlink" title="huber"></a>huber</h1><p>The value ofthe transition point δ defines those residual values that are considered to be “outliers,” subject to absolute rather than squared-error loss.</p>
-</blockquote>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#MSE</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">LeastSquaresError</span><span class="params">(RegressionLossFunction)</span>:</span></span><br><span class="line">    <span class="string">"""Loss function for least squares (LS) estimation.</span></span><br><span class="line"><span class="string">    Terminal regions need not to be updated for least squares. """</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">init_estimator</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> MeanEstimator()</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__call__</span><span class="params">(self, y, pred, sample_weight=None)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> sample_weight <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">            <span class="keyword">return</span> np.mean((y - pred.ravel()) ** <span class="number">2.0</span>)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">return</span> (<span class="number">1.0</span> / sample_weight.sum() *</span><br><span class="line">                    np.sum(sample_weight * ((y - pred.ravel()) ** <span class="number">2.0</span>)))</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">negative_gradient</span><span class="params">(self, y, pred, **kargs)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> y - pred.ravel()</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">update_terminal_regions</span><span class="params">(self, tree, X, y, residual, y_pred,</span></span></span><br><span class="line"><span class="function"><span class="params">                                sample_weight, sample_mask,</span></span></span><br><span class="line"><span class="function"><span class="params">                                learning_rate=<span class="number">1.0</span>, k=<span class="number">0</span>)</span>:</span></span><br><span class="line">        <span class="string">"""Least squares does not need to update terminal regions.</span></span><br><span class="line"><span class="string">        But it has to update the predictions.</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        <span class="comment"># update predictions</span></span><br><span class="line">        y_pred[:, k] += learning_rate * tree.predict(X).ravel()</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">_update_terminal_region</span><span class="params">(self, tree, terminal_regions, leaf, X, y,</span></span></span><br><span class="line"><span class="function"><span class="params">                                residual, pred, sample_weight)</span>:</span></span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line"><span class="comment">#LAD</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">LeastAbsoluteError</span><span class="params">(RegressionLossFunction)</span>:</span></span><br><span class="line">    <span class="string">"""Loss function for least absolute deviation (LAD) regression. """</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">init_estimator</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> QuantileEstimator(alpha=<span class="number">0.5</span>)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__call__</span><span class="params">(self, y, pred, sample_weight=None)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> sample_weight <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">            <span class="keyword">return</span> np.abs(y - pred.ravel()).mean()</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">return</span> (<span class="number">1.0</span> / sample_weight.sum() *</span><br><span class="line">                    np.sum(sample_weight * np.abs(y - pred.ravel())))</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">negative_gradient</span><span class="params">(self, y, pred, **kargs)</span>:</span></span><br><span class="line">        <span class="string">"""1.0 if y - pred &gt; 0.0 else -1.0"""</span></span><br><span class="line">        pred = pred.ravel()</span><br><span class="line">        <span class="keyword">return</span> <span class="number">2.0</span> * (y - pred &gt; <span class="number">0.0</span>) - <span class="number">1.0</span></span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">_update_terminal_region</span><span class="params">(self, tree, terminal_regions, leaf, X, y,</span></span></span><br><span class="line"><span class="function"><span class="params">                                residual, pred, sample_weight)</span>:</span></span><br><span class="line">        <span class="string">"""LAD updates terminal regions to median estimates. """</span></span><br><span class="line">        terminal_region = np.where(terminal_regions == leaf)[<span class="number">0</span>]</span><br><span class="line">        sample_weight = sample_weight.take(terminal_region, axis=<span class="number">0</span>)</span><br><span class="line">        diff = y.take(terminal_region, axis=<span class="number">0</span>) - pred.take(terminal_region, axis=<span class="number">0</span>)</span><br><span class="line">        tree.value[leaf, <span class="number">0</span>, <span class="number">0</span>] = _weighted_percentile(diff, sample_weight, percentile=<span class="number">50</span>)</span><br><span class="line"><span class="comment">#Huber</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">HuberLossFunction</span><span class="params">(RegressionLossFunction)</span>:</span></span><br><span class="line">    <span class="string">"""Huber loss function for robust regression.</span></span><br><span class="line"><span class="string">    M-Regression proposed in Friedman 2001.</span></span><br><span class="line"><span class="string">    References</span></span><br><span class="line"><span class="string">    ----------</span></span><br><span class="line"><span class="string">    J. Friedman, Greedy Function Approximation: A Gradient Boosting</span></span><br><span class="line"><span class="string">    Machine, The Annals of Statistics, Vol. 29, No. 5, 2001.</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, n_classes, alpha=<span class="number">0.9</span>)</span>:</span></span><br><span class="line">        super(HuberLossFunction, self).__init__(n_classes)</span><br><span class="line">        self.alpha = alpha</span><br><span class="line">        self.gamma = <span class="literal">None</span></span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">init_estimator</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> QuantileEstimator(alpha=<span class="number">0.5</span>)</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__call__</span><span class="params">(self, y, pred, sample_weight=None)</span>:</span></span><br><span class="line">        pred = pred.ravel()</span><br><span class="line">        diff = y - pred</span><br><span class="line">        gamma = self.gamma</span><br><span class="line">        <span class="keyword">if</span> gamma <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">            <span class="keyword">if</span> sample_weight <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">                gamma = stats.scoreatpercentile(np.abs(diff), self.alpha * <span class="number">100</span>)</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                gamma = _weighted_percentile(np.abs(diff), sample_weight, self.alpha * <span class="number">100</span>)</span><br><span class="line">    </span><br><span class="line">        gamma_mask = np.abs(diff) &lt;= gamma</span><br><span class="line">        <span class="keyword">if</span> sample_weight <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">            sq_loss = np.sum(<span class="number">0.5</span> * diff[gamma_mask] ** <span class="number">2.0</span>)</span><br><span class="line">            lin_loss = np.sum(gamma * (np.abs(diff[~gamma_mask]) - gamma / <span class="number">2.0</span>))</span><br><span class="line">            loss = (sq_loss + lin_loss) / y.shape[<span class="number">0</span>]</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            sq_loss = np.sum(<span class="number">0.5</span> * sample_weight[gamma_mask] * diff[gamma_mask] ** <span class="number">2.0</span>)</span><br><span class="line">            lin_loss = np.sum(gamma * sample_weight[~gamma_mask] *</span><br><span class="line">                              (np.abs(diff[~gamma_mask]) - gamma / <span class="number">2.0</span>))</span><br><span class="line">            loss = (sq_loss + lin_loss) / sample_weight.sum()</span><br><span class="line">        <span class="keyword">return</span> loss</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">negative_gradient</span><span class="params">(self, y, pred, sample_weight=None, **kargs)</span>:</span></span><br><span class="line">        pred = pred.ravel()</span><br><span class="line">        diff = y - pred</span><br><span class="line">        <span class="keyword">if</span> sample_weight <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">            gamma = stats.scoreatpercentile(np.abs(diff), self.alpha * <span class="number">100</span>)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            gamma = _weighted_percentile(np.abs(diff), sample_weight, self.alpha * <span class="number">100</span>)</span><br><span class="line">        gamma_mask = np.abs(diff) &lt;= gamma</span><br><span class="line">        residual = np.zeros((y.shape[<span class="number">0</span>],), dtype=np.float64)</span><br><span class="line">        residual[gamma_mask] = diff[gamma_mask]</span><br><span class="line">        residual[~gamma_mask] = gamma * np.sign(diff[~gamma_mask])</span><br><span class="line">        self.gamma = gamma</span><br><span class="line">        <span class="keyword">return</span> residual</span><br></pre></td></tr></table></figure>
-<p><strong>GBDT分类问题损失函数</strong></p>
-<p>在处理分类问题时，GBDT采用的交叉熵函数，其中对于二分类使用的映射函数为sigmoid函数，多分类使用的soft-max函数。</p>
-<p><strong>GBDT-LOSS-CLASSIFIER-BINARY</strong></p>
-<p>损失函数：</p>
-<script type="math/tex; mode=display">
-\begin{align}
-H(p,q) &=-\sum_{j=1}^n \sum_{i=1}^mp_ilogq_i \nonumber \\
-& = \sum_{j=1}^n c_0log (1+e^{-F_m(x)})+(1-c_0)(F_m(x)+log(1+e^{-F_m(x)})) \nonumber \\
-&\partial Loss(y,\hat y)|_{\hat y = F_{m-1}} = -c_0+\frac{1}{1+e^{-F_m(x)}} = \hat y - y_i \tag{18}
-\end{align}</script><p>这个就是GBDT将交叉熵作为损失函数的梯度，当是LR时，由于$F_m = w^Tx$则有梯度为：$(\hat y - y_i)x_i$.</p>
-<p><strong>GBDT-LOSS-CLASSIFIER-MULTI</strong></p>
-<p>损失函数仍然是交叉熵，但是此时的损失函数形式有些不同：</p>
-<script type="math/tex; mode=display">
-\begin{align}
-&一个样本：Loss(y_i,\hat y) = -\sum_{j=1}^m y_jlogq_j \tag{19}\\
-&只有一个标签为1,其余均为0：Loss(y_i,\hat y) = -log \frac{e^{F^j_m(x_i)}}{\sum_{j^\prime =1}^m e^{F^{j^\prime}_m(x_i)}} \tag{20}\\
-求多分类梯度：&if \quad j = i \to \partial L(y_i,\hat y)|_{\hat y =F_m(x)} =  (q_j-1)\nonumber\\
-&if \quad j\ne i \to \partial L(y_i,\hat y)|_{\hat y =F_m(x)} = q_j \nonumber\\
-&总结多分类梯度计算方式为：g_t|_{F_m(x)} = \hat y_i - y_i \tag{21}
-\end{align}</script><p>GBDT梯度计算总结：</p>
-<blockquote>
-<h1 id="GBDT梯度计算总结"><a href="#GBDT梯度计算总结" class="headerlink" title="GBDT梯度计算总结"></a>GBDT梯度计算总结</h1><p>回归问题：1）损失函数为MSE时：$g_t = (\hat y_i -y_i)$</p>
-<p>​                   2）损失函数为LAD：$g_t \in\{1 ,-1\}$，根据预测结果和真实值选择梯度更新</p>
-<p>二分类问题： $g_t = \hat y_i -y_i$，其中预测结果$\hat y_i = \frac{1}{1+e^{-F_m(x)}}$</p>
-<p>三分类问题：$g_t = \hat y_i -y_i$，其中预测结果$\hat y_i= \frac{e^{F^i_m(x)}}{\sum_{i^\prime}e^{F^{i^\prime}_m(x)}}$</p>
-</blockquote>
-<p>注：后接PART-2(XGBOOST相关内容)</p>
-
-          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/12/30/gbdtandxgboostunderstanding/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1201,48 +1064,7 @@ g_t &= (h(x;\theta)-y_i)\frac{\partial F_m(x)}{\partial w_i} \nonumber\\
 <p>​        房价（$X$）和面积（$Y$）的样本协方差为（样本方差）：</p>
 <script type="math/tex; mode=display">
 Var(X) = \frac{1}{n-1}\Sigma_{i=1}^n (X-\mu_{X})\\
-Cov(X,Y) = \frac{1}{n-1}\Sigma_{i=1}^n (X-\mu_{X})(Y-\mu_{Y})</script><p>​        PCA此时要做的工作就是对现有的特征进行线性降维，即在目前空间中找到一组基向量，然后将现有的特征映射到新的坐标空间中，同时保留特征的主要成分，删除次要成分，如：</p>
-<p><img src="/images/1574674417224.png" alt="1574674417224"></p>
-<p>​        很显然$a$在“主元2”上的坐标为0，把所有的房间换算到新的坐标系上：</p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th>Samples</th>
-<th>X</th>
-<th>Y</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>a</td>
-<td>7.64</td>
-<td>0</td>
-</tr>
-<tr>
-<td>b</td>
-<td>-3.68</td>
-<td>0</td>
-</tr>
-<tr>
-<td>c</td>
-<td>-5.09</td>
-<td>0</td>
-</tr>
-<tr>
-<td>d</td>
-<td>3.39</td>
-<td>0</td>
-</tr>
-<tr>
-<td>e</td>
-<td>-2.26</td>
-<td>0</td>
-</tr>
-</tbody>
-</table>
-</div>
-<p>​        因为“主元2全都为0”，完全是多余的，只需要“主元1”就够了，这样就又把数据降维到1维，而且没有丢失任何信息。</p>
+Cov(X,Y) = \frac{1}{n-1}\Sigma_{i=1}^n (X-\mu_{X})(Y-\mu_{Y})</script><p>​</p>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2019/12/02/pcaunderstanding/#more" rel="contents">
@@ -1520,7 +1342,7 @@ Cov(X,Y) = \frac{1}{n-1}\Sigma_{i=1}^n (X-\mu_{X})(Y-\mu_{Y})</script><p>​    
               
                 <a href="/archives/%7C%7C%20archive">
               
-                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-count">5</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

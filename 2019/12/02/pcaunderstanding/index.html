@@ -88,7 +88,7 @@
 <meta property="og:description" content="1.The derivation of the PCA1.1 主观理解​        PCA算法是一种特征降维方法，该方法是一种线性降维方法。加入有两个特征，一个是房价，一个房子面积，先对结果进行降维。     Samples X Y     a 10 10   b 2 2   c 1 1   d 7 7   e 3 3     首先进行减均值去中心化，得到：     Samples X Y">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https:&#x2F;&#x2F;jackergao.github.io&#x2F;images&#x2F;1574674417224.png">
-<meta property="og:updated_time" content="2019-12-25T07:10:06.615Z">
+<meta property="og:updated_time" content="2019-12-30T13:52:37.330Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https:&#x2F;&#x2F;jackergao.github.io&#x2F;images&#x2F;1574674417224.png">
 
@@ -483,7 +483,8 @@
 <p>​        房价（$X$）和面积（$Y$）的样本协方差为（样本方差）：</p>
 <script type="math/tex; mode=display">
 Var(X) = \frac{1}{n-1}\Sigma_{i=1}^n (X-\mu_{X})\\
-Cov(X,Y) = \frac{1}{n-1}\Sigma_{i=1}^n (X-\mu_{X})(Y-\mu_{Y})</script><p>​        PCA此时要做的工作就是对现有的特征进行线性降维，即在目前空间中找到一组基向量，然后将现有的特征映射到新的坐标空间中，同时保留特征的主要成分，删除次要成分，如：</p>
+Cov(X,Y) = \frac{1}{n-1}\Sigma_{i=1}^n (X-\mu_{X})(Y-\mu_{Y})</script><p>​        <a id="more"></a></p>
+<p>​        PCA此时要做的工作就是对现有的特征进行线性降维，即在目前空间中找到一组基向量，然后将现有的特征映射到新的坐标空间中，同时保留特征的主要成分，删除次要成分，如：</p>
 <p><img src="/images/1574674417224.png" alt="1574674417224"></p>
 <p>​        很显然$a$在“主元2”上的坐标为0，把所有的房间换算到新的坐标系上：</p>
 <div class="table-container">
@@ -525,7 +526,6 @@ Cov(X,Y) = \frac{1}{n-1}\Sigma_{i=1}^n (X-\mu_{X})(Y-\mu_{Y})</script><p>​    
 </table>
 </div>
 <p>​        因为“主元2全都为0”，完全是多余的，只需要“主元1”就够了，这样就又把数据降维到1维，而且没有丢失任何信息。</p>
-<a id="more"></a>
 <h2 id="1-2-数学推导"><a href="#1-2-数学推导" class="headerlink" title="1.2 数学推导"></a>1.2 数学推导</h2><p>假设有一个两个样本，每个样本的特征空间为2，即:</p>
 <script type="math/tex; mode=display">
 \begin{pmatrix}
@@ -760,7 +760,7 @@ f_1=\begin{pmatrix}
               
                 <a href="/archives/%7C%7C%20archive">
               
-                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-count">5</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

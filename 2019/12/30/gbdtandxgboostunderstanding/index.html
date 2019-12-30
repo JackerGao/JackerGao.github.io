@@ -92,7 +92,7 @@
 <meta property="og:image" content="https:&#x2F;&#x2F;jackergao.github.io&#x2F;2019&#x2F;12&#x2F;30&#x2F;gbdtandxgboostunderstanding&#x2F;myallfile&#x2F;work&#x2F;机器学习知识库&#x2F;AlgorithmUnderstanding&#x2F;source&#x2F;images&#x2F;cb03cc2d8da084bdefcabd6762a9b77.jpg">
 <meta property="og:image" content="https:&#x2F;&#x2F;jackergao.github.io&#x2F;2019&#x2F;12&#x2F;30&#x2F;gbdtandxgboostunderstanding&#x2F;myallfile&#x2F;work&#x2F;机器学习知识库&#x2F;AlgorithmUnderstanding&#x2F;source&#x2F;images&#x2F;453b919092fde40a451e215f64e4082.jpg">
 <meta property="og:image" content="https:&#x2F;&#x2F;images2017.cnblogs.com&#x2F;blog&#x2F;666027&#x2F;201711&#x2F;666027-20171107095601544-1325744377.jpg">
-<meta property="og:updated_time" content="2019-12-30T13:50:48.028Z">
+<meta property="og:updated_time" content="2019-12-30T13:52:06.635Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https:&#x2F;&#x2F;jackergao.github.io&#x2F;2019&#x2F;12&#x2F;30&#x2F;gbdtandxgboostunderstanding&#x2F;myallfile&#x2F;work&#x2F;机器学习知识库&#x2F;AlgorithmUnderstanding&#x2F;source&#x2F;images&#x2F;f0ab4cf35388116d91f78adefa3807e.jpg">
 
@@ -439,6 +439,7 @@ f(x) = \sum_{n=0}^n\frac{f^n(x_0)}{n!}(x-x_0)^n \tag{1}</script></blockquote>
 则有：L(x^t) &= L(x^{t-1}+\triangle x)\nonumber \\
 &=L(x^{t-1})+\triangle x L^\prime(x^{t-1}) + \frac{1}{2}\triangle xL^{''}(x^{t-1}) \tag{6}
 \end{align}</script><p>只不过GBDT用的是一阶，XGBOOST为二阶。</p>
+<a id="more"></a>
 <h3 id="梯度下降法和牛顿法的证明"><a href="#梯度下降法和牛顿法的证明" class="headerlink" title="梯度下降法和牛顿法的证明"></a>梯度下降法和牛顿法的证明</h3><p><strong>梯度下降法(Gradient descend)</strong></p>
 <p>在机器学习中，最小化损失函数$L(\theta)$，然后求解参数$\theta$，其中比较常用的优化算法是梯度下降法和牛顿法。梯度下降法使用的是损失函数的一阶导数，牛顿不仅用到了一阶导数，而且用到了二阶导数。</p>
 <script type="math/tex; mode=display">
@@ -803,6 +804,10 @@ H(p,q) &=-\sum_{j=1}^n \sum_{i=1}^mp_ilogq_i \nonumber \\
 
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/2019/12/30/gbdtandxgboost-part2/" rel="prev" title="GBDT和XGBOOST算法推导和流程详解(PART-2)">
+                GBDT和XGBOOST算法推导和流程详解(PART-2) <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -887,7 +892,7 @@ H(p,q) &=-\sum_{j=1}^n \sum_{i=1}^mp_ilogq_i \nonumber \\
               
                 <a href="/archives/%7C%7C%20archive">
               
-                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-count">5</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
