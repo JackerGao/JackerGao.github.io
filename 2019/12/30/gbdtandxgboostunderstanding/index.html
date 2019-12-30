@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="GBDT and XGBOOST," />
 
 
 
@@ -79,14 +79,22 @@
 
 
 
-<meta name="description" content="行胜于言">
-<meta property="og:type" content="website">
-<meta property="og:title" content="ML">
-<meta property="og:url" content="https:&#x2F;&#x2F;jackergao.github.io&#x2F;index.html">
+<meta name="description" content="写在前面泰勒公式 泰勒公式是一个用函数在某点的信息描述其附近取值的公式。 基本形式为：  f(x) = \sum_{n=0}^n\frac{f^n(x_0)}{n!}(x-x_0)^n \tag{1} 以上是泰勒公式的基本定义和基本形式。 泰勒的一阶展开为：  \begin{align} &amp;导数定义：\frac{f(x)-f(x_0)}{x-x_0}=f^\prime(x) \to f(x) =">
+<meta name="keywords" content="GBDT and XGBOOST">
+<meta property="og:type" content="article">
+<meta property="og:title" content="GBDT和XGBOOST算法推导和流程详解(PART-1)">
+<meta property="og:url" content="https:&#x2F;&#x2F;jackergao.github.io&#x2F;2019&#x2F;12&#x2F;30&#x2F;gbdtandxgboostunderstanding&#x2F;index.html">
 <meta property="og:site_name" content="ML">
-<meta property="og:description" content="行胜于言">
+<meta property="og:description" content="写在前面泰勒公式 泰勒公式是一个用函数在某点的信息描述其附近取值的公式。 基本形式为：  f(x) = \sum_{n=0}^n\frac{f^n(x_0)}{n!}(x-x_0)^n \tag{1} 以上是泰勒公式的基本定义和基本形式。 泰勒的一阶展开为：  \begin{align} &amp;导数定义：\frac{f(x)-f(x_0)}{x-x_0}=f^\prime(x) \to f(x) =">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https:&#x2F;&#x2F;jackergao.github.io&#x2F;2019&#x2F;12&#x2F;30&#x2F;gbdtandxgboostunderstanding&#x2F;myallfile&#x2F;work&#x2F;机器学习知识库&#x2F;AlgorithmUnderstanding&#x2F;source&#x2F;images&#x2F;f0ab4cf35388116d91f78adefa3807e.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;jackergao.github.io&#x2F;2019&#x2F;12&#x2F;30&#x2F;gbdtandxgboostunderstanding&#x2F;myallfile&#x2F;work&#x2F;机器学习知识库&#x2F;AlgorithmUnderstanding&#x2F;source&#x2F;images&#x2F;213d981a40d804f784ff885ea74c506.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;jackergao.github.io&#x2F;2019&#x2F;12&#x2F;30&#x2F;gbdtandxgboostunderstanding&#x2F;myallfile&#x2F;work&#x2F;机器学习知识库&#x2F;AlgorithmUnderstanding&#x2F;source&#x2F;images&#x2F;cb03cc2d8da084bdefcabd6762a9b77.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;jackergao.github.io&#x2F;2019&#x2F;12&#x2F;30&#x2F;gbdtandxgboostunderstanding&#x2F;myallfile&#x2F;work&#x2F;机器学习知识库&#x2F;AlgorithmUnderstanding&#x2F;source&#x2F;images&#x2F;453b919092fde40a451e215f64e4082.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;images2017.cnblogs.com&#x2F;blog&#x2F;666027&#x2F;201711&#x2F;666027-20171107095601544-1325744377.jpg">
+<meta property="og:updated_time" content="2019-12-30T13:50:48.028Z">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https:&#x2F;&#x2F;jackergao.github.io&#x2F;2019&#x2F;12&#x2F;30&#x2F;gbdtandxgboostunderstanding&#x2F;myallfile&#x2F;work&#x2F;机器学习知识库&#x2F;AlgorithmUnderstanding&#x2F;source&#x2F;images&#x2F;f0ab4cf35388116d91f78adefa3807e.jpg">
 
 
 
@@ -116,13 +124,13 @@
 
 
 
-  <link rel="canonical" href="https://jackergao.github.io/"/>
+  <link rel="canonical" href="https://jackergao.github.io/2019/12/30/gbdtandxgboostunderstanding/"/>
 
 
 
 
 
-  <title>ML</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  <title>GBDT和XGBOOST算法推导和流程详解(PART-1) | ML</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
   
 
 
@@ -141,8 +149,7 @@
     
   
 
-  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left 
-  page-home">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -279,9 +286,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -311,9 +318,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/12/30/gbdtandxgboostunderstanding/" itemprop="url">GBDT和XGBOOST算法推导和流程详解(PART-1)</a></h1>
+          <h1 class="post-title" itemprop="name headline">GBDT和XGBOOST算法推导和流程详解(PART-1)</h1>
         
 
         <div class="post-meta">
@@ -389,6 +394,11 @@
           
 
           
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv">本文总阅读量 <i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>次
+            </span>
+          
 
           
 
@@ -407,9 +417,7 @@
       
 
       
-        
-          
-            <h2 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h2><h3 id="泰勒公式"><a href="#泰勒公式" class="headerlink" title="泰勒公式"></a>泰勒公式</h3><blockquote>
+        <h2 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h2><h3 id="泰勒公式"><a href="#泰勒公式" class="headerlink" title="泰勒公式"></a>泰勒公式</h3><blockquote>
 <p>泰勒公式是一个用函数在某点的信息描述其附近取值的公式。</p>
 <p>基本形式为：</p>
 <script type="math/tex; mode=display">
@@ -756,8 +764,6 @@ H(p,q) &=-\sum_{j=1}^n \sum_{i=1}^mp_ilogq_i \nonumber \\
 </blockquote>
 <p>注：后接PART-2(XGBOOST相关内容)</p>
 
-          
-        
       
     </div>
     
@@ -772,507 +778,36 @@ H(p,q) &=-\sum_{j=1}^n \sum_{i=1}^mp_ilogq_i \nonumber \\
 
     <footer class="post-footer">
       
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-tags" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://jackergao.github.io/2019/12/25/sigmoidandsoftmaxgradient/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Ali">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/avatara.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="ML">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/12/25/sigmoidandsoftmaxgradient/" itemprop="url">LR和GBDT在处理多分类问题时的梯度推导和算法更新过程</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-12-25T15:18:40+08:00">
-                2019-12-25
-              </time>
-            
-
-            
-
-            
-          </span>
-
+        <div class="post-tags">
           
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/cross-entropy/" itemprop="url" rel="index">
-                    <span itemprop="name">Cross-Entropy</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/cross-entropy/lr/" itemprop="url" rel="index">
-                    <span itemprop="name">LR</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/cross-entropy/lr/gbdt/" itemprop="url" rel="index">
-                    <span itemprop="name">GBDT</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/cross-entropy/lr/gbdt/sigmoid/" itemprop="url" rel="index">
-                    <span itemprop="name">Sigmoid</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/cross-entropy/lr/gbdt/sigmoid/softmax/" itemprop="url" rel="index">
-                    <span itemprop="name">SoftMax</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
+            <a href="/tags/gbdt-and-xgboost/" rel="tag"># GBDT and XGBOOST</a>
           
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
         </div>
-      </header>
-    
+      
 
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
+      
       
       
 
       
-        
-          <h1 id="LR-GBDT二分类和多分类梯度计算和更新过程"><a href="#LR-GBDT二分类和多分类梯度计算和更新过程" class="headerlink" title="LR+GBDT二分类和多分类梯度计算和更新过程"></a>LR+GBDT二分类和多分类梯度计算和更新过程</h1><h2 id="梯度推导"><a href="#梯度推导" class="headerlink" title="梯度推导"></a>梯度推导</h2><h3 id="SIGMOID-函数分类-LR-GBDT"><a href="#SIGMOID-函数分类-LR-GBDT" class="headerlink" title="SIGMOID 函数分类(LR+GBDT)"></a>SIGMOID 函数分类(LR+GBDT)</h3><p>sigmoid函数通常将结果映射到[0,1]之间，先推导通过后向传播求其梯度，假设非映射结果为（$F_m(x)$）：</p>
-<script type="math/tex; mode=display">
-\begin {align}
-Sigmoid映射：h(x;\theta) &= \frac{1}{1+e^{-F_m(x)}} \tag{1} \\
-损失函数：Loss(y,\hat y) &= -\sum_{i=0}^1y_ilog\hat y_i \nonumber\\
-&=-[y_ilog h_i+(1-y_i)log(1-h_i)]\tag{2} \\
-\end {align}</script><p>应该注意的是$\hat y$是预测结果，并且$\hat y = h(x;\theta)$，交叉熵作为损失函数是为了评估实际值（标签）$y_i$与预测值的相似程度。先求其梯度，且暂时不考虑使用什么函数拟合。</p>
-<script type="math/tex; mode=display">
-\begin{align}
-一般形式（拟合函数F_m(x)）：g_t &= \frac{\partial Loss(y,\hat y)}{\partial F_m(x)} \nonumber \\
-&=(h(x;\theta)-y_i) \tag{3}
-\end{align}</script><p>求一阶导数的时候不需要一下把所有的的函数都代入，这样会比较复杂，链式求导一般会较少计算错误率。上式若拟合函数是多元线性组合形式，则为LR的梯度求导过程，只需要代入$F_m(x) = w^Tx$:</p>
-<script type="math/tex; mode=display">
-\begin{align}
-g_t &= (h(x;\theta)-y_i)\frac{\partial F_m(x)}{\partial w_i} \nonumber\\
-& = (\hat y_i-y_i)x_i \tag{4}
-\end{align}</script><p>LR采用梯度下降时，更新方法为：</p>
-<blockquote>
-<h1 id="LR更新方法-梯度下降法"><a href="#LR更新方法-梯度下降法" class="headerlink" title="LR更新方法-梯度下降法"></a>LR更新方法-梯度下降法</h1><p>第一步：初始化$[w_1,w_2,…,w_n]^T$;</p>
-<p>第二步：计算梯度Jacobian矩阵。</p>
-<p>$g_t =[g_1,g_2,…,g_i]^T= [(\hat y_1-y_1)x_i,(\hat y_2-y_2)x_2,…,(\hat y_i-y_i)x_i]$;</p>
-<p>第三步：$[w_1,w_2,…,w_n]^T:=[w_1,w_2,…,w_n]^T-\alpha g_t$;</p>
-<p>第四步：$w^* = arg \min_wLoss $;</p>
-<p>第五步：算法结束</p>
-</blockquote>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/12/25/sigmoidandsoftmaxgradient/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/12/25/sigmoidandsoftmaxgradient/" rel="next" title="LR和GBDT在处理多分类问题时的梯度推导和算法更新过程">
+                <i class="fa fa-chevron-left"></i> LR和GBDT在处理多分类问题时的梯度推导和算法更新过程
+              </a>
+            
           </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
 
-    
+          <span class="post-nav-divider"></span>
 
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-tags" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://jackergao.github.io/2019/12/02/pcaunderstanding/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Ali">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/avatara.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="ML">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/12/02/pcaunderstanding/" itemprop="url">PCA通俗理解和理论推导</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
+          <div class="post-nav-prev post-nav-item">
             
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-12-02T10:36:59+08:00">
-                2019-12-02
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/dimension-reduction/" itemprop="url" rel="index">
-                    <span itemprop="name">dimension reduction</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/dimension-reduction/matrix-decomposition/" itemprop="url" rel="index">
-                    <span itemprop="name">Matrix decomposition</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
+          </div>
         </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
-        
-          <h1 id="1-The-derivation-of-the-PCA"><a href="#1-The-derivation-of-the-PCA" class="headerlink" title="1.The derivation of the PCA"></a>1.The derivation of the PCA</h1><h2 id="1-1-主观理解"><a href="#1-1-主观理解" class="headerlink" title="1.1 主观理解"></a>1.1 主观理解</h2><p>​        PCA算法是一种特征降维方法，该方法是一种线性降维方法。加入有两个特征，一个是房价，一个房子面积，先对结果进行降维。</p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th>Samples</th>
-<th>X</th>
-<th>Y</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>a</td>
-<td>10</td>
-<td>10</td>
-</tr>
-<tr>
-<td>b</td>
-<td>2</td>
-<td>2</td>
-</tr>
-<tr>
-<td>c</td>
-<td>1</td>
-<td>1</td>
-</tr>
-<tr>
-<td>d</td>
-<td>7</td>
-<td>7</td>
-</tr>
-<tr>
-<td>e</td>
-<td>3</td>
-<td>3</td>
-</tr>
-</tbody>
-</table>
-</div>
-<p>首先进行减均值去中心化，得到：</p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th>Samples</th>
-<th>X</th>
-<th>Y</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>a</td>
-<td>5.4</td>
-<td>5.4</td>
-</tr>
-<tr>
-<td>b</td>
-<td>-2.6</td>
-<td>-2.6</td>
-</tr>
-<tr>
-<td>c</td>
-<td>-3.6</td>
-<td>-3.6</td>
-</tr>
-<tr>
-<td>d</td>
-<td>-2.4</td>
-<td>-2.4</td>
-</tr>
-<tr>
-<td>e</td>
-<td>-1.6</td>
-<td>-1.6</td>
-</tr>
-</tbody>
-</table>
-</div>
-<p>​        房价（$X$）和面积（$Y$）的样本协方差为（样本方差）：</p>
-<script type="math/tex; mode=display">
-Var(X) = \frac{1}{n-1}\Sigma_{i=1}^n (X-\mu_{X})\\
-Cov(X,Y) = \frac{1}{n-1}\Sigma_{i=1}^n (X-\mu_{X})(Y-\mu_{Y})</script><p>​        PCA此时要做的工作就是对现有的特征进行线性降维，即在目前空间中找到一组基向量，然后将现有的特征映射到新的坐标空间中，同时保留特征的主要成分，删除次要成分，如：</p>
-<p><img src="/images/1574674417224.png" alt="1574674417224"></p>
-<p>​        很显然$a$在“主元2”上的坐标为0，把所有的房间换算到新的坐标系上：</p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th>Samples</th>
-<th>X</th>
-<th>Y</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>a</td>
-<td>7.64</td>
-<td>0</td>
-</tr>
-<tr>
-<td>b</td>
-<td>-3.68</td>
-<td>0</td>
-</tr>
-<tr>
-<td>c</td>
-<td>-5.09</td>
-<td>0</td>
-</tr>
-<tr>
-<td>d</td>
-<td>3.39</td>
-<td>0</td>
-</tr>
-<tr>
-<td>e</td>
-<td>-2.26</td>
-<td>0</td>
-</tr>
-</tbody>
-</table>
-</div>
-<p>​        因为“主元2全都为0”，完全是多余的，只需要“主元1”就够了，这样就又把数据降维到1维，而且没有丢失任何信息。</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/12/02/pcaunderstanding/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </div>
@@ -1282,197 +817,11 @@ Cov(X,Y) = \frac{1}{n-1}\Sigma_{i=1}^n (X-\mu_{X})(Y-\mu_{Y})</script><p>​    
   </article>
 
 
-    
-      
 
-  
-
-  
-  
-  
-
-  <article class="post post-type-tags" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://jackergao.github.io/2019/11/26/GraphEnbedding/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Ali">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/avatara.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="ML">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/11/26/GraphEnbedding/" itemprop="url">Word2Vec Paper Understanding</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-11-26T15:53:46+08:00">
-                2019-11-26
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/ml/" itemprop="url" rel="index">
-                    <span itemprop="name">ML</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/ml/graphenbedding/" itemprop="url" rel="index">
-                    <span itemprop="name">GraphEnbedding</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/ml/graphenbedding/word2vec/" itemprop="url" rel="index">
-                    <span itemprop="name">Word2vec</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/ml/graphenbedding/word2vec/optimization/" itemprop="url" rel="index">
-                    <span itemprop="name">Optimization</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="Word2Vec-and-Corresponding-Knowledge"><a href="#Word2Vec-and-Corresponding-Knowledge" class="headerlink" title="Word2Vec and Corresponding Knowledge"></a>Word2Vec and Corresponding Knowledge</h1><h2 id="1-Neural-Network-language-model"><a href="#1-Neural-Network-language-model" class="headerlink" title="1. Neural Network language model"></a>1. Neural Network language model</h2><h3 id="1-1-CBOW-Continue-bag-of-words"><a href="#1-1-CBOW-Continue-bag-of-words" class="headerlink" title="1.1 CBOW(Continue bag of words)"></a>1.1 CBOW(Continue bag of words)</h3><p>CBOW最早是Mikolov等大牛在2013年提出的。CBOW要利用若干个上下文词来预测中心词。之所以称为continuous bag-of-word，即连续词袋，是因为在考虑上下文单词时，这些上下文单词的顺序是忽略的。我们先从最简单版本的CBOW开始讲，即上下文词只有1个。</p>
-<h4 id="One-word-context"><a href="#One-word-context" class="headerlink" title="One-word context"></a>One-word context</h4><p>先从最简单的CBOW开始讲，即只使用1个上下文单词<script type="math/tex">w_I</script>来预测中心词<script type="math/tex">w_O</script>。<br>如图1描述的就是One-word context定义之下的神经网络模型。词典大小为V, 隐藏层的大小为N，相邻层的神经元是全连接的。输入层是一个用one-hot方式编码的单词向量$x=(x_1,…x_k,…,x_V)$，其中只有一个$x_k$为1，其余均为0。</p>
-<p><img src="/images/1574821234004.png" alt="1574821234004"></p>
-<p><strong>输入层到隐藏层</strong><br>输入层到隐藏层的连接权重可以表示使用$W_{V \times N}$:</p>
-<script type="math/tex; mode=display">
-\mathbf W=  \begin{pmatrix}  w_{11}& w_{12}& …& w_{1N}\\  w_{21}& w_{22}& … & w_{2N}\\  …& … & … & …\\  w_{V1}& w_{V2}&. .. &w_{VN}  \end{pmatrix}</script><p>$W_{V \times N}$每行是相应单词的输入词向量表示，即第一行为词典中第一个单词的输入词向量表示，第$k$行为词典中第$k$个词的输入词向量表示，解释如下：</p>
-<script type="math/tex; mode=display">
-\mathbf h= \mathbf W^T \mathbf x=\mathbf W_{(k,\cdot)}^T  :=\mathbf v_{\omega_I}^T \tag{1}</script><p>$x$是某个单词的one-hot向量表示，且该单词在词典中的下标为k，即$x_k$=1, $x^\prime_k=0, k^\prime≠k$。因此只用到$W^T$的第$k$列，也即$W$的第$k$行。因此，$W$的第$k$行即为第k个单词的输入词向量，相当于直接将$W$的第$k$行拷贝到隐藏层单元$h$上。该输入词向量也是我们最终学习到的词向量（后面的输出词向量我们不需要）。</p>
-<p>在上述神经网络中，相当于输入层到隐藏层的激活函数为线性激活函数。另外，由于具有上述的性质，因此通常输入层到隐藏层不显示绘制出来，直接通过查表操作(如TensorFlow中embedding_lookup)拿出单词的词向量，然后传入到下一层，只不过这个词向量也需要通过反向传播来优化。</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/11/26/GraphEnbedding/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
+    <div class="post-spread">
       
     </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
   </div>
-  
-  
-  
-  </article>
-
-
-    
-  </section>
-
-  
 
 
           </div>
@@ -1480,6 +829,15 @@ Cov(X,Y) = \frac{1}{n-1}\Sigma_{i=1}^n (X-\mu_{X})(Y-\mu_{Y})</script><p>​    
 
 
           
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8zMzYwNi8xMDE2MQ=="></div>
+    </div>
+
+  
+
+
 
         </div>
         
@@ -1500,8 +858,17 @@ Cov(X,Y) = \frac{1}{n-1}\Sigma_{i=1}^n (X-\mu_{X})(Y-\mu_{Y})</script><p>​    
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -1581,6 +948,22 @@ Cov(X,Y) = \frac{1}{n-1}\Sigma_{i=1}^n (X-\mu_{X})(Y-\mu_{Y})</script><p>​    
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#写在前面"><span class="nav-number">1.</span> <span class="nav-text">写在前面</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#泰勒公式"><span class="nav-number">1.1.</span> <span class="nav-text">泰勒公式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#梯度下降法和牛顿法的证明"><span class="nav-number">1.2.</span> <span class="nav-text">梯度下降法和牛顿法的证明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#从参数空间到函数空间"><span class="nav-number">1.3.</span> <span class="nav-text">从参数空间到函数空间</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GBDT算法原理"><span class="nav-number">1.4.</span> <span class="nav-text">GBDT算法原理</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#huber"><span class="nav-number"></span> <span class="nav-text">huber</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#GBDT梯度计算总结"><span class="nav-number"></span> <span class="nav-text">GBDT梯度计算总结</span></a></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -1754,6 +1137,10 @@ Cov(X,Y) = \frac{1}{n-1}\Sigma_{i=1}^n (X-\mu_{X})(Y-\mu_{Y})</script><p>​    
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
@@ -1782,6 +1169,17 @@ Cov(X,Y) = \frac{1}{n-1}\Sigma_{i=1}^n (X-\mu_{X})(Y-\mu_{Y})</script><p>​    
 
 
 
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
   
 
 
